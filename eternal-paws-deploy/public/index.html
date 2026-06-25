@@ -70,7 +70,8 @@ em{font-style:italic;}
 .animate-float{animation:float 6s ease-in-out infinite;}
 .animate-glow-pulse{animation:glowPulse 3s ease-in-out infinite;}
 
-.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);pointer-events:none;}
+.reveal.visible{opacity:1;transform:none;pointer-events:auto;}
 .reveal.visible{opacity:1;transform:none;}
 .reveal-delay-1{transition-delay:.10s;}
 .reveal-delay-2{transition-delay:.20s;}
@@ -79,7 +80,7 @@ em{font-style:italic;}
 
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important;}
-  .reveal{opacity:1;transform:none;}
+  .reveal{opacity:1;transform:none;pointer-events:auto;}
 }
 
 /* ============ BUTTONS ============ */
@@ -676,7 +677,7 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:40px 0;}
       <p>Real submissions, real results — every detail of your pet preserved.</p>
     </div>
 
-    <div class="ba-tabs reveal">
+    <div class="ba-tabs">
       <button class="ba-tab active" type="button" data-target="ba-photos">Photo Examples</button>
       <button class="ba-tab" type="button" data-target="ba-videos">Video Examples</button>
     </div>
