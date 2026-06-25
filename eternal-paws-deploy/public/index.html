@@ -259,10 +259,12 @@ section{position:relative;}
 .ba-tab{
   font-size:13px;font-weight:600;color:var(--comet);border:1px solid var(--dusk);
   border-radius:999px;padding:10px 24px;background:var(--nebula);transition:.25s;
+  cursor:pointer;
 }
 .ba-tab.active{background:var(--aurora);color:var(--mist);border-color:var(--aurora);}
 .ba-panel-group{display:none;}
 .ba-panel-group.active{display:block;}
+.ba-video-card .ba-panel video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;}
 .ba-video-card video,.ba-video-card .ba-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
 
 /* ============ TESTIMONIALS ============ */
@@ -712,7 +714,10 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:40px 0;}
             </div>
           </div>
           <div class="ba-caption"><strong>Luna</strong> — Premium, photo portrait</div>
-    </div>
+        </div><!-- /ba-card Luna -->
+
+      </div><!-- /ba-grid fotos -->
+    </div><!-- /ba-panel-group#ba-photos -->
 
     <!-- VIDEO EXAMPLES -->
     <div class="ba-panel-group" id="ba-videos">
@@ -754,12 +759,10 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:40px 0;}
           <div class="ba-caption"><strong>Cooper</strong> — Premium, cinematic video</div>
         </div>
 
-      </div>  <!-- fecha ba-grid -->
-    </div>    <!-- fecha ba-panel-group id="ba-videos" -->
-        </div>
-      </div>
-    </div>
-  </div>
+      </div><!-- /ba-grid videos -->
+    </div><!-- /ba-panel-group#ba-videos -->
+
+  </div><!-- /container -->
 </section>
 
 <!-- TESTIMONIALS -->
@@ -1121,7 +1124,14 @@ document.querySelectorAll('.ba-tab').forEach(function(tab) {
     document.querySelectorAll('.ba-tab').forEach(function(t) { t.classList.remove('active'); });
     document.querySelectorAll('.ba-panel-group').forEach(function(p) { p.classList.remove('active'); });
     tab.classList.add('active');
-    document.getElementById(tab.dataset.target).classList.add('active');
+    var target = document.getElementById(tab.dataset.target);
+    if (target) {
+      target.classList.add('active');
+      // força .visible em todos os .reveal dentro do grupo que ficaram hidden
+      target.querySelectorAll('.reveal').forEach(function(el) {
+        el.classList.add('visible');
+      });
+    }
   });
 });
 
@@ -1237,13 +1247,11 @@ document.querySelectorAll('.faq-item').forEach(function(item) {
     label.style.display = 'none';
     spinner.style.display = 'block';
 
-  // mapeia os nomes do frontend para os nomes do servidor
-    var planMap = { memory: 'basic', tribute: 'premium' };
     var response = await fetch('https://eternal-paws-original-production.up.railway.app/create-checkout', {
-   method: 'POST',
-   headers: { 'Content-Type': 'application/json' },
-   body: JSON.stringify({ plan: planMap[currentPlan] || 'basic' })
-     });
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ plan: currentPlan })
+    });
 
       var data = await response.json();
 
@@ -1262,8 +1270,8 @@ document.querySelectorAll('.faq-item').forEach(function(item) {
       spinner.style.display = 'none';
     }
   };
-  })();
-  
+
+})();
 </script>
 
 </body>
