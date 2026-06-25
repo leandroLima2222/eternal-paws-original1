@@ -1164,7 +1164,7 @@ document.querySelectorAll('.faq-item').forEach(function(item) {
 
 // ============ STRIPE CHECKOUT ============
 (function() {
-  var PUBLISHABLE_KEY = window.STRIPE_PK || 'pk_live_51TlITA7t4PODQi76pYjW0MlteSQZQAGjeBgEhWtpBcZsLIwmeoshSoTO0E1NqMXNCJhjOBRoTSdrdqZGbR19O16b00qLUJi0Rh';
+  var PUBLISHABLE_KEY = window.STRIPE_PK || process.env.STRIPE_PUBLISHABLE_KEY;
 
   var PLANS = {
     memory: {
