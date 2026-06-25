@@ -60,7 +60,7 @@ em{font-style:italic;}
 .text-aurora{color:var(--aurora);}
 
 /* ============ ANIMATIONS ============ */
-@frames fadeUp{0%{opacity:0;transform:translateY(24px);}100%{opacity:1;transform:translateY(0);}}
+@keyframes fadeUp{0%{opacity:0;transform:translateY(24px);}100%{opacity:1;transform:translateY(0);}}
 @keyframes twinkle{0%,100%{opacity:.2;}50%{opacity:1;}}
 @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
 @keyframes glowPulse{0%,100%{box-shadow:0 0 20px rgba(123,111,212,.3);}50%{box-shadow:0 0 40px rgba(123,111,212,.7);}}
@@ -1152,7 +1152,7 @@ document.querySelectorAll('.faq-item').forEach(function(item) {
       display: '$29.00',
       features: [
         '1 custom cinematic reunion video',
-        'Soul ID — faithful to your pet's look',
+        'Soul ID - faithful to your pets look', 
         'Emotional music included',
         '4K HD file delivered by email',
         'Delivered within 48 hours'
