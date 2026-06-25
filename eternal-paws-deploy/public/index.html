@@ -1144,7 +1144,7 @@ document.querySelectorAll('.faq-item').forEach(function(item) {
 
 // ============ STRIPE CHECKOUT ============
 (function() {
-  var PUBLISHABLE_KEY = window.STRIPE_PK || 'pk_test_51TlITA7t4PODQi76BpMSJpLEjrpAvdudQXV3FzPC7XfM1aaiiYRsZeRhBFU6HHew2K612jWmU8OaOFFfNsX31TGs00MvEcluGo';
+  var PUBLISHABLE_KEY = window.STRIPE_PK || 'pk_live_51TlITA7t4PODQi76pYjW0MlteSQZQAGjeBgEhWtpBcZsLIwmeoshSoTO0E1NqMXNCJhjOBRoTSdrdqZGbR19O16b00qLUJi0Rh';
 
   var PLANS = {
     memory: {
@@ -1237,12 +1237,13 @@ document.querySelectorAll('.faq-item').forEach(function(item) {
     label.style.display = 'none';
     spinner.style.display = 'block';
 
-    try {
-      var response = await fetch('eternal-paws-original-production.up.railway.app', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ plan: currentPlan })
-      });
+  // mapeia os nomes do frontend para os nomes do servidor
+    var planMap = { memory: 'basic', tribute: 'premium' };
+    var response = await fetch('https://eternal-paws-original-production.up.railway.app/create-checkout', {
+   method: 'POST',
+   headers: { 'Content-Type': 'application/json' },
+   body: JSON.stringify({ plan: planMap[currentPlan] || 'basic' })
+     });
 
       var data = await response.json();
 
@@ -1261,8 +1262,8 @@ document.querySelectorAll('.faq-item').forEach(function(item) {
       spinner.style.display = 'none';
     }
   };
-
-})();
+  })();
+  
 </script>
 
 </body>
