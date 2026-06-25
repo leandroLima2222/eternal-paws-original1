@@ -60,7 +60,7 @@ em{font-style:italic;}
 .text-aurora{color:var(--aurora);}
 
 /* ============ ANIMATIONS ============ */
-@keyframes fadeUp{0%{opacity:0;transform:translateY(24px);}100%{opacity:1;transform:translateY(0);}}
+@frames fadeUp{0%{opacity:0;transform:translateY(24px);}100%{opacity:1;transform:translateY(0);}}
 @keyframes twinkle{0%,100%{opacity:.2;}50%{opacity:1;}}
 @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
 @keyframes glowPulse{0%,100%{box-shadow:0 0 20px rgba(123,111,212,.3);}50%{box-shadow:0 0 40px rgba(123,111,212,.7);}}
@@ -505,7 +505,7 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:40px 0;}
         <div class="phone">
           <div class="phone-notch"></div>
           <div class="phone-frame">
-            <video autoplay loop muted playsinline poster="images/hero-poster.jpg">
+            <video autoplay loop muted playsinline poster="images/hero-poster.jpg" onerror="this.style.display='none';">
               <source src="images/hero-tribute.mp4" type="video/mp4">
             </video>
             <svg viewBox="0 0 200 355" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
@@ -552,7 +552,7 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:40px 0;}
                 <ellipse cx="12" cy="64" rx="6" ry="3" fill="#C8B96A" opacity="0.10"/>
               </g>
               <text x="100" y="236" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#C8B96A" opacity="0.9" font-style="italic">Buddy</text>
-              <text x="100" y="251" text-anchor="middle" font-family="Georgia, serif" font-size="7.5" fill="#A89ED4" opacity="0.7">2011 – 2026</text>
+              <text x="100" y="251" text-anchor="middle" font-family="Georgia, serif" font-size="7.5" fill="#A89ED4" opacity="0.7">2011 – 2024</text>
               <g transform="translate(100,262)" opacity="0.5">
                 <line x1="-30" y1="0" x2="-6" y2="0" stroke="#C8B96A" stroke-width="0.5"/>
                 <circle cx="0" cy="0" r="2" fill="#C8B96A"/>
@@ -695,7 +695,7 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:40px 0;}
               <p class="ba-placeholder" style="display:none;">Place "buddy-after.jpg" in an /images folder next to this file</p>
             </div>
           </div>
-          <div class="ba-caption"><strong>Buddy</strong> — Premium, photo portrait</div>
+          <div class="ba-caption"><strong>Buddy</strong> — Basic, photo portrait</div>
         </div>
 
         <div class="ba-card reveal reveal-delay-1">
@@ -712,6 +712,9 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:40px 0;}
             </div>
           </div>
           <div class="ba-caption"><strong>Luna</strong> — Premium, photo portrait</div>
+        </div>
+      </div>
+      <p class="ba-note reveal">Create an "images" folder next to this HTML file and add: buddy-before.jpg, buddy-after.jpg, luna-before.jpg, luna-after.jpg. Add more pairs by duplicating a .ba-card block.</p>
     </div>
 
     <!-- VIDEO EXAMPLES -->
@@ -722,14 +725,14 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:40px 0;}
             <div class="ba-panel before">
               <span class="ba-label">Before</span>
               <video autoplay loop muted playsinline onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
-                <source src="https://res.cloudinary.com/defx9fopr/video/upload/v1782373987/mochi-before_kngzpr.mp4" type="video/mp4">
+                <source src="images/mochi-before.mp4" type="video/mp4">
               </video>
               <p class="ba-placeholder" style="display:none;">Place "mochi-before.mp4" in an /images folder next to this file</p>
             </div>
             <div class="ba-panel after">
               <span class="ba-label">After</span>
               <video autoplay loop muted playsinline onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
-                <source src="https://res.cloudinary.com/defx9fopr/video/upload/v1782373986/mochi-after_lcmcyq.mp4" type="video/mp4">
+                <source src="images/mochi-after.mp4" type="video/mp4">
               </video>
               <p class="ba-placeholder" style="display:none;">Place "mochi-after.mp4" in an /images folder next to this file</p>
             </div>
@@ -742,14 +745,14 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:40px 0;}
             <div class="ba-panel before">
               <span class="ba-label">Before</span>
               <video autoplay loop muted playsinline onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
-                <source src="https://res.cloudinary.com/defx9fopr/video/upload/v1782373966/cooper-before_bmey0l.mp4" type="video/mp4">
+                <source src="images/cooper-before.mp4" type="video/mp4">
               </video>
               <p class="ba-placeholder" style="display:none;">Place "cooper-before.mp4" in an /images folder next to this file</p>
             </div>
             <div class="ba-panel after">
               <span class="ba-label">After</span>
               <video autoplay loop muted playsinline onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
-                <source src="https://res.cloudinary.com/defx9fopr/video/upload/v1782374794/cooper-after_jyvbey.mp4" type="video/mp4">
+                <source src="images/cooper-after.mp4" type="video/mp4">
               </video>
               <p class="ba-placeholder" style="display:none;">Place "cooper-after.mp4" in an /images folder next to this file</p>
             </div>
@@ -757,6 +760,7 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:40px 0;}
           <div class="ba-caption"><strong>Cooper</strong> — Premium, cinematic video</div>
         </div>
       </div>
+      <p class="ba-note reveal">Same /images folder — add: mochi-before.mp4, mochi-after.mp4, cooper-before.mp4, cooper-after.mp4. Keep clips short (5–10s), muted, and looping for the smoothest autoplay on mobile.</p>
     </div>
   </div>
 </section>
@@ -830,7 +834,7 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:40px 0;}
           <li><svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7B6FD4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg><span>Delivered within <strong>24 hours</strong></span></li>
           <li><svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7B6FD4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg><span>1 revision included</span></li>
         </ul>
-        <a href="#checkout" class="price-cta outline" onclick="selectPlan('memory')">Get Started — $29</a>
+        <a href="#checkout" class="price-cta outline" onclick="selectPlan('memory');return false;">Get Started — $29</a>
       </div>
 
       <div class="price-card best reveal reveal-delay-2">
@@ -851,9 +855,9 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:40px 0;}
           <li><svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8B96A" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>Anatomically faithful</strong> — fur texture, eye color, unique traits</span></li>
           <li><svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8B96A" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg><span>All files in <strong>4K HD</strong>, print-ready + shareable sizes</span></li>
           <li><svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8B96A" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>Priority delivery</strong> within 24 hours</span></li>
-          <li><svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8B96A" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg><span>Each tribute includes 1 revision to adjust details and deliver the best result possible.</span></li>
+          <li><svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8B96A" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg><span>Unlimited revisions until you love it</span></li>
         </ul>
-        <a href="#checkout" class="price-cta btn-gold" onclick="selectPlan('tribute')">Get Started — $49</a>
+        <a href="#checkout" class="price-cta btn-gold" onclick="selectPlan('tribute');return false;">Get Started — $49</a>
       </div>
     </div>
 
@@ -875,14 +879,14 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:40px 0;}
     <p class="guarantee-text reveal">
       We understand that your pet was irreplaceable. Every tribute we create is treated as if it were for our own beloved companion — studying your photos carefully to capture the exact color of their fur, the shape of their ears, the look in their eyes.
       <br/><br/>
-      <em style="font-style:normal;color:var(--mist);">Each memorial is created with care and includes one revision for final adjustments.</em>
+      <em style="font-style:normal;color:var(--mist);">We will never rush your pet's memorial, and we will revise it until it feels right.</em>
     </p>
 
     <div class="pillars">
-      <div class="pillar"><div class="pillar-emoji">🎨</div><p class="pillar-title">Handcrafted</p><p class="pillar-desc">with the support of artificial intelligence.</p></div>
+      <div class="pillar"><div class="pillar-emoji">🎨</div><p class="pillar-title">Handcrafted</p><p class="pillar-desc">No generic templates. Every piece is original.</p></div>
       <div class="pillar"><div class="pillar-emoji">🔍</div><p class="pillar-title">Anatomically True</p><p class="pillar-desc">Fur, eyes, markings — every detail preserved.</p></div>
       <div class="pillar"><div class="pillar-emoji">💛</div><p class="pillar-title">Made With Love</p><p class="pillar-desc">We treat your pet's tribute as our own.</p></div>
-      <div class="pillar"><div class="pillar-emoji">✅</div><p class="pillar-title">Satisfaction First</p><p class="pillar-desc">Crafted with attention to every detail.</p></div>
+      <div class="pillar"><div class="pillar-emoji">✅</div><p class="pillar-title">Satisfaction First</p><p class="pillar-desc">Unlimited revisions. Your peace of mind matters.</p></div>
     </div>
   </div>
 </section>
@@ -917,7 +921,7 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:40px 0;}
           <span>What if I don't like the final result?</span>
           <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
         </button>
-        <div class="faq-a"><div class="faq-a-inner">Each tribute includes 1 revision to adjust details and deliver the best result possible.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">The Premium package includes unlimited revisions until you're happy. The Basic package includes one free revision. We won't consider a tribute finished until it feels right to you.</div></div>
       </div>
 
       <div class="faq-item reveal">
@@ -1151,7 +1155,7 @@ document.querySelectorAll('.faq-item').forEach(function(item) {
       display: '$29.00',
       features: [
         '1 custom cinematic reunion video',
-        'faithful to your pets look', 
+        'Soul ID — faithful to your pet's look',
         'Emotional music included',
         '4K HD file delivered by email',
         'Delivered within 48 hours'
@@ -1161,7 +1165,7 @@ document.querySelectorAll('.faq-item').forEach(function(item) {
       label: '💛 Tribute',
       display: '$49.00',
       features: [
-        '1 custom reunion video',
+        '1 custom reunion video with Soul ID',
         'Cinematic editing + emotional music',
         'Feed + Story versions (3 formats)',
         '4K HD files delivered by email',
@@ -1177,7 +1181,8 @@ document.querySelectorAll('.faq-item').forEach(function(item) {
         '3 video versions — different scenes',
         'Feed + Story + Horizontal formats',
         'Priority 12-hour delivery',
-]
+        'Unlimited revisions until you love it'
+      ]
     }
   };
 
@@ -1237,7 +1242,7 @@ document.querySelectorAll('.faq-item').forEach(function(item) {
     spinner.style.display = 'block';
 
     try {
-      var response = await fetch('eternal-paws-original-production.up.railway.app', {
+      var response = await fetch('https://eternal-paws-original-production.up.railway.app/create-checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ plan: currentPlan })
