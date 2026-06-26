@@ -139,11 +139,16 @@ section{position:relative;}
 .ba-card{background:var(--nebula);border:1px solid var(--dusk);border-radius:20px;overflow:hidden;}
 @media(min-width:640px){.ba-card{border-radius:24px;}}
 .ba-compare{display:grid;grid-template-columns:1fr 1fr;}
+@media (max-width:480px){
+  .ba-compare{grid-template-columns:1fr;}
+  .ba-panel.before{border-right:none;border-bottom:1px solid var(--dusk);}
+}
 .ba-panel{aspect-ratio:4/5;display:flex;align-items:center;justify-content:center;position:relative;padding:12px;text-align:center;}
 @media(min-width:640px){.ba-panel{padding:16px;}}
+@media (max-width:480px){.ba-panel{aspect-ratio:16/10;}}
 .ba-panel.before{background:#15182c;border-right:1px solid var(--dusk);}
 .ba-panel.after{background:linear-gradient(160deg,#1c1436 0%,#0d1429 60%,#12143A 100%);}
-.ba-label{position:absolute;top:10px;left:10px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--comet);background:rgba(11,13,26,.7);padding:3px 8px;border-radius:999px;}
+.ba-label{position:absolute;top:10px;left:10px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--comet);background:rgba(11,13,26,.7);padding:3px 8px;border-radius:999px;z-index:5;}
 @media(min-width:640px){.ba-label{top:12px;left:12px;font-size:11px;padding:4px 10px;}}
 .ba-placeholder{color:var(--comet);font-size:12px;line-height:1.6;}
 .ba-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;}
@@ -211,7 +216,7 @@ section{position:relative;}
 @media(min-width:640px){.price-features li{gap:12px;margin-bottom:14px;font-size:14px;}}
 .price-features strong{color:var(--mist);}
 .check-icon{flex-shrink:0;margin-top:2px;}
-.price-cta{display:block;text-align:center;width:100%;border-radius:999px;padding:14px 24px;font-weight:600;font-size:14px;}
+.price-cta{display:block;text-align:center;width:100%;border-radius:999px;padding:14px 24px;font-weight:600;font-size:14px;cursor:pointer;}
 .price-cta.outline{border:1px solid var(--aurora);color:var(--aurora);background:transparent;transition:.3s;}
 .price-cta.outline:hover{background:var(--aurora);color:var(--night);}
 .money-note{text-align:center;font-size:12px;color:var(--comet);margin-top:28px;}
@@ -632,5 +637,222 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:32px 0;}
   </div>
 </footer>
 
-HTML_START
-echo "HTML body written, now appending script..."
+<script>
+(function(){
+  // ── Navbar scroll state ──────────────────────────────────────
+  var navbar = document.getElementById('navbar');
+  function onScroll(){
+    if (window.scrollY > 40) navbar.classList.add('scrolled');
+    else navbar.classList.remove('scrolled');
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // ── Reveal on scroll ──────────────────────────────────────────
+  var revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(function(el){ io.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('visible'); });
+  }
+
+  // ── Simple starfield canvas ───────────────────────────────────
+  var canvas = document.getElementById('starfield');
+  if (canvas) {
+    var ctx = canvas.getContext('2d');
+    var stars = [];
+    function resize(){
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+      stars = [];
+      var count = Math.floor((canvas.width * canvas.height) / 9000);
+      for (var i = 0; i < count; i++){
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 1.2 + 0.3,
+          a: Math.random() * 0.6 + 0.3,
+          speed: Math.random() * 0.4 + 0.05
+        });
+      }
+    }
+    function draw(){
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      stars.forEach(function(s){
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255,255,255,' + s.a + ')';
+        ctx.fill();
+        s.y += s.speed;
+        if (s.y > canvas.height) s.y = 0;
+      });
+      requestAnimationFrame(draw);
+    }
+    window.addEventListener('resize', resize);
+    resize();
+    draw();
+  }
+
+  // ── FAQ accordion ──────────────────────────────────────────────
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    var btn = item.querySelector('.faq-q');
+    var ans = item.querySelector('.faq-a');
+    btn.addEventListener('click', function(){
+      var isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(function(openItem){
+        if (openItem !== item) {
+          openItem.classList.remove('open');
+          openItem.querySelector('.faq-a').style.maxHeight = null;
+        }
+      });
+      if (isOpen) {
+        item.classList.remove('open');
+        ans.style.maxHeight = null;
+      } else {
+        item.classList.add('open');
+        ans.style.maxHeight = ans.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // ── Before/After tabs (Photo Examples / Video Examples) ────────
+  document.querySelectorAll('.ba-tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      document.querySelectorAll('.ba-tab').forEach(function(t){ t.classList.remove('active'); });
+      tab.classList.add('active');
+      var targetId = tab.getAttribute('data-target');
+      document.querySelectorAll('.ba-panel-group').forEach(function(group){
+        group.classList.remove('active');
+      });
+      var target = document.getElementById(targetId);
+      if (target) target.classList.add('active');
+
+      document.querySelectorAll('#ba-videos video').forEach(function(v){
+        if (targetId === 'ba-videos') {
+          v.play().catch(function(){});
+        } else {
+          v.pause();
+        }
+      });
+    });
+  });
+
+  // ── Plan selection (pricing cards + checkout toggle) ────────────
+  window.currentPlan = 'memory';
+
+  var PLAN_DATA = {
+    memory: {
+      label: 'Memory',
+      price: 29,
+      features: [
+        '1 custom digital piece — photo or video',
+        '4K HD file, print-ready',
+        'Delivered within 24 hours',
+        '1 revision included'
+      ]
+    },
+    tribute: {
+      label: 'Tribute',
+      price: 49,
+      features: [
+        '2 custom photo portraits',
+        '1 cinematic memorial video (9:16 & horizontal)',
+        'All files in 4K HD',
+        'Priority delivery within 24 hours',
+        '1 revision included'
+      ]
+    }
+  };
+
+  function renderSummaryFeatures(plan){
+    var wrap = document.getElementById('summary-features');
+    if (!wrap) return;
+    wrap.innerHTML = '';
+    PLAN_DATA[plan].features.forEach(function(feat){
+      var row = document.createElement('div');
+      row.className = 'sum-feat';
+      row.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7B6FD4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg><span>' + feat + '</span>';
+      wrap.appendChild(row);
+    });
+  }
+
+  window.selectPlan = function(plan){
+    if (!PLAN_DATA[plan]) return;
+    window.currentPlan = plan;
+
+    document.getElementById('btn-basic').classList.toggle('active', plan === 'memory');
+    document.getElementById('btn-premium').classList.toggle('active', plan === 'tribute');
+
+    var data = PLAN_DATA[plan];
+    document.getElementById('sum-pkg').textContent = data.label;
+    document.getElementById('sum-total').textContent = '$' + data.price.toFixed(2);
+    renderSummaryFeatures(plan);
+
+    var payLabel = document.getElementById('pay-label');
+    if (payLabel) payLabel.textContent = 'Pay $' + data.price.toFixed(2) + ' — Continue to Stripe';
+  };
+
+  // initialize defaults on load
+  renderSummaryFeatures('memory');
+
+  // ── Checkout: call backend to create Stripe Checkout session ───
+  window.handleCheckout = async function(){
+    var btn = document.getElementById('pay-btn');
+    var label = document.getElementById('pay-label');
+    var spinner = document.getElementById('pay-spinner');
+    var errEl = document.getElementById('checkout-error');
+
+    errEl.style.display = 'none';
+    btn.disabled = true;
+    label.style.display = 'none';
+    spinner.style.display = 'block';
+
+    try {
+      var response = await fetch('https://eternal-paws-original-production.up.railway.app/create-checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ plan: window.currentPlan })
+      });
+
+      var data = await response.json();
+
+      if (!response.ok || !data.url) {
+        throw new Error(data.error || 'Could not start checkout. Please try again.');
+      }
+
+      window.location.href = data.url;
+
+    } catch (err) {
+      console.error('Checkout error:', err);
+      errEl.textContent = err.message || 'Something went wrong. Please try again.';
+      errEl.style.display = 'block';
+      btn.disabled = false;
+      label.style.display = 'inline';
+      spinner.style.display = 'none';
+    }
+  };
+
+  // ── Show success/cancel message if returning from Stripe ───────
+  var params = new URLSearchParams(window.location.search);
+  if (params.get('success') === 'true') {
+    var panel = document.getElementById('checkout-panel');
+    var success = document.getElementById('checkout-success');
+    if (panel) panel.style.display = 'none';
+    if (success) success.style.display = 'block';
+    document.getElementById('checkout').scrollIntoView({ behavior: 'smooth' });
+  } else if (params.get('cancel') === 'true') {
+    document.getElementById('checkout').scrollIntoView({ behavior: 'smooth' });
+  }
+})();
+</script>
+
+</body>
+</html>
