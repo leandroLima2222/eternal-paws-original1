@@ -83,7 +83,7 @@ app.post("/create-checkout", async (req, res) => {
         },
       ],
       mode: "payment",
-      success_url: `${BASE_URL}/?success=true&session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${BASE_URL}/success`,
       cancel_url:  `${BASE_URL}/?cancel=true`,
       metadata: { plan },
     });
@@ -122,10 +122,25 @@ async function handleWebhook(req, res) {
 
     console.log(`✅ Sale confirmed: ${customerName} | ${customerEmail} | ${planLabel}`);
 
-    await Promise.allSettled([
+    const results = await Promise.allSettled([
       sendOwnerNotification({ customerName, customerEmail, planLabel, amountPaid }),
       sendCustomerConfirmation({ customerName, customerEmail, planLabel }),
     ]);
+
+    // ── Visible fallback: log any email failures so they appear in Railway logs ──
+    const [ownerResult, customerResult] = results;
+    if (ownerResult.status === "rejected") {
+      console.error("🚨 OWNER EMAIL FAILED — check Gmail credentials in Railway env vars");
+      console.error("   Customer:", customerEmail, "| Plan:", planLabel, "| Amount:", amountPaid);
+      console.error("   Reason:", ownerResult.reason?.message || ownerResult.reason);
+    }
+    if (customerResult.status === "rejected") {
+      console.error("🚨 CUSTOMER EMAIL FAILED — confirmation not sent to:", customerEmail);
+      console.error("   Reason:", customerResult.reason?.message || customerResult.reason);
+    }
+    if (ownerResult.status === "fulfilled" && customerResult.status === "fulfilled") {
+      console.log("✅ Both emails sent successfully.");
+    }
   }
 
   res.json({ received: true });
