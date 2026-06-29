@@ -314,8 +314,10 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:32px 0;}
 .footer-badges{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;}
 
 /* ── Reveal ── */
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .65s cubic-bezier(.16,1,.3,1),transform .65s cubic-bezier(.16,1,.3,1);}
-.reveal.visible{opacity:1;transform:none;}
+/* Hero elements are visible by default; JS adds .will-animate before observing */
+.reveal{opacity:1;transform:none;}
+.reveal.will-animate{opacity:0;transform:translateY(24px);transition:opacity .65s cubic-bezier(.16,1,.3,1),transform .65s cubic-bezier(.16,1,.3,1);}
+.reveal.will-animate.visible{opacity:1;transform:none;}
 .rd1{transition-delay:.08s;}.rd2{transition-delay:.16s;}.rd3{transition-delay:.24s;}.rd4{transition-delay:.32s;}
 
 /* ── Mobile tap targets ── */
@@ -816,16 +818,24 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:32px 0;}
   }, {passive:true});
 
   // ── Reveal on scroll ──────────────────────────────────────
-  var revEls = document.querySelectorAll('.reveal');
-  if ('IntersectionObserver' in window) {
+  // Only animate elements that start BELOW the fold (not visible on load)
+  var revEls = document.querySelectorAll(".reveal");
+  var viewH = window.innerHeight;
+  revEls.forEach(function(el){
+    var rect = el.getBoundingClientRect();
+    if(rect.top > viewH) el.classList.add("will-animate");
+  });
+  if ("IntersectionObserver" in window) {
     var io = new IntersectionObserver(function(entries){
       entries.forEach(function(e){
-        if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}
+        if(e.isIntersecting){e.target.classList.add("visible");io.unobserve(e.target);}
       });
-    },{threshold:.1,rootMargin:'0px 0px -32px 0px'});
-    revEls.forEach(function(el){io.observe(el);});
+    },{threshold:.08,rootMargin:"0px 0px -24px 0px"});
+    revEls.forEach(function(el){
+      if(el.classList.contains("will-animate")) io.observe(el);
+    });
   } else {
-    revEls.forEach(function(el){el.classList.add('visible');});
+    revEls.forEach(function(el){el.classList.add("visible");});
   }
 
   // ── Starfield ─────────────────────────────────────────────
