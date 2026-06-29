@@ -806,156 +806,223 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:32px 0;}
   </div>
 </footer>
 
-<!-- ════════════════════════════════════════════════════ 
-  SCRIPTS 
-════════════════════════════════════════════════════ -->
+<!-- SCRIPTS -->
 <script>
-(function(){
-  // ── Navbar scroll ──────────────────────────────────────────
-  var navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', function(){
-    navbar.classList.toggle('scrolled', window.scrollY > 40);
-  }, {passive:true});
+// ── Globals exposed for onclick= attributes in HTML ──────────
+var currentPlan = 'memory';
 
-  // ── Reveal on scroll ──────────────────────────────────────
-  // Only animate elements that start BELOW the fold (not visible on load)
-  var revEls = document.querySelectorAll(".reveal");
-  var viewH = window.innerHeight;
-  revEls.forEach(function(el){
-    var rect = el.getBoundingClientRect();
-    if(rect.top > viewH) el.classList.add("will-animate");
-  });
-  if ("IntersectionObserver" in window) {
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if(e.isIntersecting){e.target.classList.add("visible");io.unobserve(e.target);}
-      });
-    },{threshold:.08,rootMargin:"0px 0px -24px 0px"});
-    revEls.forEach(function(el){
-      if(el.classList.contains("will-animate")) io.observe(el);
-    });
-  } else {
-    revEls.forEach(function(el){el.classList.add("visible");});
+var PLANS = {
+  memory: {
+    label: 'Memory', price: 29,
+    features: [
+      '1 custom digital piece — photo or video',
+      '4K HD file, print-ready',
+      'Delivered within 24 hours',
+      '1 revision included'
+    ]
+  },
+  tribute: {
+    label: 'Tribute', price: 49,
+    features: [
+      '2 custom photo portraits',
+      '1 cinematic memorial video (9:16 & horizontal)',
+      'All files in 4K HD',
+      'Priority delivery within 24 hours',
+      '1 revision included'
+    ]
   }
+};
 
-  // ── Starfield ─────────────────────────────────────────────
-  var canvas = document.getElementById('stars');
-  if(canvas){
-    var ctx=canvas.getContext('2d'),stars=[];
-    function resize(){
-      canvas.width=canvas.offsetWidth;canvas.height=canvas.offsetHeight;stars=[];
-      var n=Math.floor(canvas.width*canvas.height/9000);
-      for(var i=0;i<n;i++)stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*1.1+.3,a:Math.random()*.55+.25,sp:Math.random()*.35+.05});
-    }
-    function draw(){
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      stars.forEach(function(s){ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle='rgba(255,255,255,'+s.a+')';ctx.fill();s.y+=s.sp;if(s.y>canvas.height)s.y=0;});
-      requestAnimationFrame(draw);
-    }
-    window.addEventListener('resize',resize,{passive:true});resize();draw();
-  }
-
-  // ── FAQ accordion ─────────────────────────────────────────
-  document.querySelectorAll('.faq-item').forEach(function(item){
-    item.querySelector('.faq-q').addEventListener('click',function(){
-      var isOpen=item.classList.contains('open');
-      document.querySelectorAll('.faq-item.open').forEach(function(o){
-        o.classList.remove('open');o.querySelector('.faq-a').style.maxHeight=null;
-      });
-      if(!isOpen){item.classList.add('open');item.querySelector('.faq-a').style.maxHeight=item.querySelector('.faq-a').scrollHeight+'px';}
-    });
+function renderFeatures(plan) {
+  var wrap = document.getElementById('summary-features');
+  if (!wrap) return;
+  wrap.innerHTML = '';
+  PLANS[plan].features.forEach(function(f) {
+    var d = document.createElement('div');
+    d.className = 'sum-feat';
+    d.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#7B6FD4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg><span>' + f + '</span>';
+    wrap.appendChild(d);
   });
+}
 
-  // ── BA tabs ───────────────────────────────────────────────
-  document.querySelectorAll('.ba-tab').forEach(function(tab){
-    tab.addEventListener('click',function(){
-      document.querySelectorAll('.ba-tab').forEach(function(t){t.classList.remove('active');});
-      tab.classList.add('active');
-      var id=tab.getAttribute('data-target');
-      document.querySelectorAll('.ba-panel-group').forEach(function(g){g.classList.remove('active');});
-      var target=document.getElementById(id);
-      if(target)target.classList.add('active');
-      document.querySelectorAll('#ba-videos video').forEach(function(v){
-        if(id==='ba-videos')v.play().catch(function(){});else v.pause();
-      });
-    });
-  });
+function selectPlan(plan) {
+  if (!PLANS[plan]) return;
+  currentPlan = plan;
+  document.getElementById('btn-basic').classList.toggle('active', plan === 'memory');
+  document.getElementById('btn-premium').classList.toggle('active', plan === 'tribute');
+  var d = PLANS[plan];
+  document.getElementById('sum-pkg').textContent = d.label;
+  document.getElementById('sum-total').textContent = '$' + d.price.toFixed(2);
+  var payLabel = document.getElementById('pay-label');
+  if (payLabel) payLabel.textContent = 'Pay $' + d.price.toFixed(2) + ' — Continue to Stripe';
+  renderFeatures(plan);
+}
 
-  // ── Plan selection ────────────────────────────────────────
-  window.currentPlan='memory';
-  var PLANS={
-    memory:{label:'Memory',price:29,features:['1 custom digital piece — photo or video','4K HD file, print-ready','Delivered within 24 hours','1 revision included']},
-    tribute:{label:'Tribute',price:49,features:['2 custom photo portraits','1 cinematic memorial video (9:16 & horizontal)','All files in 4K HD','Priority delivery within 24 hours','1 revision included']}
-  };
-  function renderFeatures(plan){
-    var wrap=document.getElementById('summary-features');if(!wrap)return;
-    wrap.innerHTML='';
-    PLANS[plan].features.forEach(function(f){
-      var d=document.createElement('div');d.className='sum-feat';
-      d.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#7B6FD4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg><span>'+f+'</span>';
-      wrap.appendChild(d);
+async function handleCheckout() {
+  var btn     = document.getElementById('pay-btn');
+  var label   = document.getElementById('pay-label');
+  var spinner = document.getElementById('pay-spinner');
+  var errEl   = document.getElementById('checkout-error');
+
+  errEl.style.display = 'none';
+  btn.disabled = true;
+  label.style.display = 'none';
+  spinner.style.display = 'block';
+
+  try {
+    var response = await fetch('https://eternal-paws-original-production.up.railway.app/create-checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ plan: currentPlan })
     });
+    var data = await response.json();
+    if (!response.ok || !data.url) throw new Error(data.error || 'Could not start checkout. Please try again.');
+    window.location.href = data.url;
+  } catch (err) {
+    console.error('Checkout error:', err);
+    errEl.textContent = err.message || 'Something went wrong. Please try again.';
+    errEl.style.display = 'block';
+    btn.disabled = false;
+    label.style.display = 'inline';
+    spinner.style.display = 'none';
   }
-  window.selectPlan=function(plan){
-    if(!PLANS[plan])return;
-    window.currentPlan=plan;
-    document.getElementById('btn-basic').classList.toggle('active',plan==='memory');
-    document.getElementById('btn-premium').classList.toggle('active',plan==='tribute');
-    var d=PLANS[plan];
-    document.getElementById('sum-pkg').textContent=d.label;
-    document.getElementById('sum-total').textContent='$'+d.price.toFixed(2);
-    document.getElementById('pay-label').textContent='Pay $'+d.price.toFixed(2)+' — Continue to Stripe';
-    renderFeatures(plan);
-  };
+}
+
+// ── Init on DOMContentLoaded ──────────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+
+  // Render default plan features
   renderFeatures('memory');
 
-  // ── Checkout ──────────────────────────────────────────────
-  window.handleCheckout=async function(){
-    var btn=document.getElementById('pay-btn');
-    var label=document.getElementById('pay-label');
-    var spinner=document.getElementById('pay-spinner');
-    var errEl=document.getElementById('checkout-error');
-    errEl.style.display='none';
-    btn.disabled=true;label.style.display='none';spinner.style.display='block';
-    try{
-      var response=await fetch('https://eternal-paws-original-production.up.railway.app/create-checkout',{
-        method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({plan:window.currentPlan})
-      });
-      var data=await response.json();
-      if(!response.ok||!data.url)throw new Error(data.error||'Could not start checkout. Please try again.');
-      window.location.href=data.url;
-    }catch(err){
-      console.error('Checkout error:',err);
-      errEl.textContent=err.message||'Something went wrong. Please try again.';
-      errEl.style.display='block';
-      btn.disabled=false;label.style.display='inline';spinner.style.display='none';
-    }
-  };
+  // ── Navbar scroll ────────────────────────────────────────
+  var navbar = document.getElementById('navbar');
+  if (navbar) {
+    window.addEventListener('scroll', function() {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+  }
 
-  // ── Urgency bar — fake-but-plausible countdown ────────────
-  // Slots count: persist across page loads with sessionStorage
-  var INITIAL_SLOTS = 7;
+  // ── Reveal on scroll ─────────────────────────────────────
+  var revEls = document.querySelectorAll('.reveal');
+  var viewH = window.innerHeight;
+  revEls.forEach(function(el) {
+    var rect = el.getBoundingClientRect();
+    if (rect.top > viewH) el.classList.add('will-animate');
+  });
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -24px 0px' });
+    revEls.forEach(function(el) {
+      if (el.classList.contains('will-animate')) io.observe(el);
+    });
+  } else {
+    revEls.forEach(function(el) { el.classList.remove('will-animate'); });
+  }
+
+  // ── Starfield ────────────────────────────────────────────
+  var canvas = document.getElementById('stars');
+  if (canvas) {
+    var ctx = canvas.getContext('2d'), stars = [];
+    function resizeCanvas() {
+      canvas.width  = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+      stars = [];
+      var n = Math.floor(canvas.width * canvas.height / 9000);
+      for (var i = 0; i < n; i++) {
+        stars.push({
+          x:  Math.random() * canvas.width,
+          y:  Math.random() * canvas.height,
+          r:  Math.random() * 1.1 + 0.3,
+          a:  Math.random() * 0.55 + 0.25,
+          sp: Math.random() * 0.35 + 0.05
+        });
+      }
+    }
+    function drawStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      stars.forEach(function(s) {
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255,255,255,' + s.a + ')';
+        ctx.fill();
+        s.y += s.sp;
+        if (s.y > canvas.height) s.y = 0;
+      });
+      requestAnimationFrame(drawStars);
+    }
+    window.addEventListener('resize', resizeCanvas, { passive: true });
+    resizeCanvas();
+    drawStars();
+  }
+
+  // ── FAQ accordion ────────────────────────────────────────
+  document.querySelectorAll('.faq-item').forEach(function(item) {
+    var btn = item.querySelector('.faq-q');
+    var ans = item.querySelector('.faq-a');
+    if (!btn || !ans) return;
+    btn.addEventListener('click', function() {
+      var isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(function(o) {
+        o.classList.remove('open');
+        o.querySelector('.faq-a').style.maxHeight = null;
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        ans.style.maxHeight = ans.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // ── Before/After tabs ────────────────────────────────────
+  document.querySelectorAll('.ba-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      document.querySelectorAll('.ba-tab').forEach(function(t) { t.classList.remove('active'); });
+      tab.classList.add('active');
+      var id = tab.getAttribute('data-target');
+      document.querySelectorAll('.ba-panel-group').forEach(function(g) { g.classList.remove('active'); });
+      var target = document.getElementById(id);
+      if (target) target.classList.add('active');
+      document.querySelectorAll('#ba-videos video').forEach(function(v) {
+        if (id === 'ba-videos') v.play().catch(function() {});
+        else v.pause();
+      });
+    });
+  });
+
+  // ── Urgency bar slots countdown ──────────────────────────
   var slotsEl = document.getElementById('slots-count');
-  if(slotsEl){
+  if (slotsEl) {
     var stored = sessionStorage.getItem('ep_slots');
-    var slots = stored ? parseInt(stored) : INITIAL_SLOTS;
+    var slots  = stored ? parseInt(stored, 10) : 7;
     slotsEl.textContent = slots;
-    // Decrement every 5–12 minutes randomly while on page
-    function maybeDecrement(){
-      if(slots <= 1) return;
+    function maybeDecrement() {
+      if (slots <= 1) return;
       slots = Math.max(1, slots - 1);
       sessionStorage.setItem('ep_slots', slots);
       slotsEl.textContent = slots;
-      setTimeout(maybeDecrement, (300000 + Math.random() * 420000));
+      setTimeout(maybeDecrement, 300000 + Math.random() * 420000);
     }
     setTimeout(maybeDecrement, 300000 + Math.random() * 420000);
   }
 
-  // ── Success / cancel redirect from Stripe ─────────────────
-  var params=new URLSearchParams(window.location.search);
-  if(params.get('success')==='true'){
-    var panel=document.getElementById('checkout-panel');
-    var success=document.getElementById('checkout-success');
-    if(panel)panel.style.display='none';
-    if(success)s
+  // ── Handle Stripe redirect result ────────────────────────
+  var params = new URLSearchParams(window.location.search);
+  if (params.get('success') === 'true') {
+    var panel   = document.getElementById('checkout-panel');
+    var success = document.getElementById('checkout-success');
+    if (panel)   panel.style.display   = 'none';
+    if (success) success.style.display = 'block';
+    var checkoutEl = document.getElementById('checkout');
+    if (checkoutEl) checkoutEl.scrollIntoView({ behavior: 'smooth' });
+  } else if (params.get('cancel') === 'true') {
+    var checkoutEl2 = document.getElementById('checkout');
+    if (checkoutEl2) checkoutEl2.scrollIntoView({ behavior: 'smooth' });
+  }
+
+});
+</script>
+</body>
+</html>
