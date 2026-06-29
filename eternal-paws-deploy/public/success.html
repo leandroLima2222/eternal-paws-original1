@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Order Confirmed — Eternal Paws</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --night:#0B0D1A;
+  --cosmos:#111427;
+  --nebula:#1A1F3A;
+  --dusk:#252B52;
+  --aurora:#7B6FD4;
+  --star:#C8B96A;
+  --mist:#E8E4F8;
+  --comet:#A89ED4;
+  --font-display:'Cormorant Garamond', Georgia, serif;
+  --font-body:'Inter', system-ui, sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-font-smoothing:antialiased;}
+body{
+  background:var(--night);
+  font-family:var(--font-body);
+  color:var(--mist);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:24px 16px;
+  position:relative;
+  overflow:hidden;
+}
+canvas#stars{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;}
+.card{
+  position:relative;z-index:10;
+  max-width:580px;width:100%;
+  background:var(--nebula);
+  border:1px solid var(--dusk);
+  border-radius:28px;
+  padding:40px 28px;
+  text-align:center;
+}
+@media(min-width:640px){.card{padding:52px 48px;}}
+
+/* top glow ring */
+.glow-ring{
+  width:88px;height:88px;border-radius:50%;
+  background:radial-gradient(circle, rgba(200,185,106,.25) 0%, transparent 70%);
+  border:1px solid rgba(200,185,106,.3);
+  display:inline-flex;align-items:center;justify-content:center;
+  margin-bottom:28px;
+  animation:pulse 3s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(200,185,106,.2);}50%{box-shadow:0 0 0 16px rgba(200,185,106,0);}}
+.glow-ring span{font-size:38px;}
+
+h1{
+  font-family:var(--font-display);font-weight:300;font-size:32px;line-height:1.15;
+  margin-bottom:12px;
+}
+@media(min-width:640px){h1{font-size:40px;}}
+.subtitle{color:var(--comet);font-size:15px;line-height:1.6;margin-bottom:36px;max-width:420px;margin-left:auto;margin-right:auto;}
+@media(min-width:640px){.subtitle{font-size:16px;}}
+
+/* steps */
+.steps{display:flex;flex-direction:column;gap:16px;text-align:left;margin-bottom:36px;}
+.step-row{
+  display:flex;gap:16px;align-items:flex-start;
+  background:rgba(37,43,82,.45);border:1px solid var(--dusk);
+  border-radius:16px;padding:18px;
+}
+.step-num{
+  flex-shrink:0;width:36px;height:36px;border-radius:50%;
+  background:rgba(123,111,212,.18);border:1px solid rgba(123,111,212,.35);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-style:italic;font-size:18px;color:var(--star);
+}
+.step-body h3{font-family:var(--font-display);font-weight:400;font-size:18px;color:var(--mist);margin-bottom:4px;}
+.step-body p{font-size:13px;color:var(--comet);line-height:1.6;}
+.step-body a{color:var(--aurora);text-decoration:underline;}
+.step-body strong{color:var(--mist);}
+
+/* highlight box */
+.highlight{
+  background:rgba(200,185,106,.07);border:1px solid rgba(200,185,106,.2);
+  border-radius:14px;padding:18px 20px;margin-bottom:32px;
+  font-size:13px;color:var(--comet);line-height:1.7;text-align:left;
+}
+.highlight ul{list-style:none;margin-top:10px;display:flex;flex-direction:column;gap:6px;}
+.highlight li{display:flex;gap:8px;align-items:flex-start;}
+.highlight li::before{content:"✦";color:var(--star);flex-shrink:0;margin-top:1px;}
+
+/* divider */
+.divider{border:none;border-top:1px solid var(--dusk);margin:28px 0;}
+
+.support-note{font-size:12px;color:var(--comet);}
+.support-note a{color:var(--aurora);}
+
+/* logo */
+.logo{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--font-display);font-size:18px;color:var(--mist);
+  margin-bottom:32px;
+}
+.logo .star{color:var(--star);}
+</style>
+</head>
+<body>
+
+<canvas id="stars"></canvas>
+
+<div class="card">
+  <div>
+    <a href="/" class="logo"><span class="star">✦</span> Eternal <em>Paws</em></a>
+  </div>
+
+  <div class="glow-ring"><span>🐾</span></div>
+
+  <h1>Order <em style="color:var(--star);">Confirmed!</em></h1>
+  <p class="subtitle">
+    Thank you for honoring your pet's memory.<br/>
+    Here's everything you need to do next — it only takes 2 minutes.
+  </p>
+
+  <div class="steps">
+    <div class="step-row">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h3>Check your inbox</h3>
+        <p>A confirmation email is on its way from <strong>contadosfudidotl@gmail.com</strong>. If you don't see it in 5 minutes, check your spam folder.</p>
+      </div>
+    </div>
+
+    <div class="step-row">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h3>Reply with your pet's photos</h3>
+        <p>Hit <strong>Reply</strong> on that email and attach your favorite photos. The more you send, the more personal your tribute will be.</p>
+      </div>
+    </div>
+
+    <div class="step-row">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h3>Receive your tribute within 24 hours</h3>
+        <p>Once we have your photos, we'll get to work right away. Your finished memorial arrives in <strong>4K HD</strong>, ready to display, print, or share.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="highlight">
+    <strong style="color:var(--star);">📸 Tips for the best result:</strong>
+    <ul>
+      <li>Send 5–20 photos for the richest detail</li>
+      <li>Include close-ups of their face, eyes, and coat</li>
+      <li>Any format works — JPG, PNG, HEIC, even old scans</li>
+      <li>Blurry or old photos are fine; we restore and enhance everything</li>
+    </ul>
+  </div>
+
+  <hr class="divider" />
+
+  <p class="support-note">
+    Questions? Just reply to your confirmation email or write to us at
+    <a href="mailto:contadosfudidotl@gmail.com">contadosfudidotl@gmail.com</a>.<br/>
+    We're here and we care. 🐾
+  </p>
+</div>
+
+<script>
+// Lightweight starfield (same as main page)
+(function(){
+  var c=document.getElementById('stars'),ctx=c.getContext('2d'),stars=[],W,H,raf;
+  function resize(){W=c.width=window.innerWidth;H=c.height=window.innerHeight;}
+  function Star(){this.x=Math.random()*W;this.y=Math.random()*H;this.r=Math.random()*.9+.2;this.base=Math.random()*.4+.1;this.speed=Math.random()*.006+.003;this.phase=Math.random()*Math.PI*2;this.gold=Math.random()<.08;}
+  function init(){resize();stars=[];var n=Math.min(Math.floor(W*H/5000),120);for(var i=0;i<n;i++)stars.push(new Star());}
+  function draw(t){ctx.clearRect(0,0,W,H);for(var i=0;i<stars.length;i++){var s=stars[i],a=s.base+Math.sin(t*s.speed+s.phase)*s.base;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=s.gold?'rgba(200,185,106,'+a+')':'rgba(232,228,248,'+a+')';ctx.fill();}raf=requestAnimationFrame(draw);}
+  init();window.addEventListener('resize',function(){cancelAnimationFrame(raf);init();draw(0);},{passive:true});draw(0);
+})();
+</script>
+</body>
+</html>
