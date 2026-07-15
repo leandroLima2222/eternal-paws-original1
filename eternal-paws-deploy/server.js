@@ -31,12 +31,12 @@ const WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET;
 
 const PLANS = {
   memory: {
-    name:   "🐾 Memory — Pet Memorial Video",
+    name:   "🐾 Memory — Pet Memorial Tribute",
     amount: 2900,          // $29
     label:  "Memory ($29)"
   },
   tribute: {
-    name:   "💛 Tribute — Complete Memorial Package",
+    name:   "💛 Tribute — Emotional Reunion Package",
     amount: 4900,         // $49
     label:  "Tribute ($49)"
   },
@@ -94,6 +94,16 @@ app.post("/create-checkout", async (req, res) => {
     console.error("❌ create-checkout error:", err.message);
     res.status(500).json({ error: err.message });
   }
+});
+
+// ═══════════════════════════════════════════════════════════════
+//  ROTA: /success  (página de confirmação — success.html)
+//  ⚠️ Precisa vir ANTES do catch-all, senão o catch-all sempre
+//  devolve index.html e a página de confirmação nunca aparece.
+// ═══════════════════════════════════════════════════════════════
+
+app.get("/success", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "success.html"));
 });
 
 // ═══════════════════════════════════════════════════════════════
