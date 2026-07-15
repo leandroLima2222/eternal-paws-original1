@@ -1,3 +1,6 @@
+
+
+Índice · HTML
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -5,11 +8,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Pet Memorial Tributes — Done in 24 Hours | Eternal Paws</title>
 <meta name="description" content="Send us your pet's photos. We craft a stunning 4K memorial video or portrait and deliver it to your inbox within 24 hours. Starting at $29." />
-
+ 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-
+ 
 <style>
 :root{
   --night:#0B0D1A;
@@ -34,20 +37,20 @@ img{max-width:100%;display:block;}
 a{color:inherit;text-decoration:none;}
 ul{list-style:none;}
 button{font-family:inherit;border:none;background:none;cursor:pointer;color:inherit;}
-
+ 
 /* ── Layout ── */
 .wrap{max-width:1100px;margin:0 auto;padding:0 18px;}
 .wrap-sm{max-width:760px;margin:0 auto;padding:0 18px;}
 .wrap-md{max-width:900px;margin:0 auto;padding:0 18px;}
 @media(min-width:640px){.wrap,.wrap-sm,.wrap-md{padding:0 28px;}}
-
+ 
 /* ── Type ── */
 .eyebrow{font-family:var(--font-b);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--aurora);margin-bottom:12px;}
 h1,h2,h3{font-family:var(--font-d);font-weight:300;color:var(--mist);}
 em{font-style:italic;}
 .gold{color:var(--star);}
 .dim{color:var(--comet);}
-
+ 
 /* ── Animations ── */
 @keyframes shimmer{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
 @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
@@ -56,7 +59,7 @@ em{font-style:italic;}
 @keyframes marqueeL{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 @keyframes countdown{from{width:100%;}to{width:0%;}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
-
+ 
 /* ── Buttons ── */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:15px;border-radius:999px;padding:15px 30px;cursor:pointer;transition:transform .2s,opacity .2s;white-space:nowrap;border:none;}
 @media(min-width:640px){.btn{font-size:16px;padding:17px 36px;}}
@@ -66,7 +69,7 @@ em{font-style:italic;}
 .btn-ghost{border:1.5px solid var(--dusk);color:var(--comet);background:transparent;}
 .btn-ghost:hover{border-color:var(--aurora);color:var(--mist);}
 .btn-full{width:100%;}
-
+ 
 /* ── Urgency Bar ── */
 #urgency-bar{
   background:linear-gradient(135deg,#3a2a6e 0%,#1A1F3A 100%);
@@ -77,14 +80,14 @@ em{font-style:italic;}
 }
 #urgency-bar span.gold{margin:0 6px;}
 .count-ring{display:inline-block;background:rgba(200,185,106,.2);border:1px solid rgba(200,185,106,.4);border-radius:8px;padding:2px 10px;font-family:var(--font-d);font-size:18px;color:var(--star);margin:0 4px;min-width:36px;text-align:center;font-style:italic;}
-
+ 
 /* ── Navbar ── */
 #navbar{position:sticky;top:0;z-index:50;padding:14px 0;transition:all .3s;}
 #navbar.scrolled{background:rgba(11,13,26,.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(37,43,82,.6);}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;}
 .logo{font-family:var(--font-d);font-size:19px;letter-spacing:.02em;display:flex;align-items:center;gap:8px;}
 @media(min-width:640px){.logo{font-size:21px;}}
-
+ 
 /* ── Hero ── */
 .hero{position:relative;background:var(--night);padding:72px 0 56px;overflow:hidden;}
 @media(min-width:768px){.hero{padding:90px 0 72px;}}
@@ -92,7 +95,7 @@ em{font-style:italic;}
 canvas#stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;}
 .hero-grid{position:relative;z-index:1;display:grid;gap:40px;align-items:center;}
 @media(min-width:768px){.hero-grid{grid-template-columns:1.1fr .9fr;gap:56px;}}
-
+ 
 /* Hero copy */
 .hero-copy{}
 .hero h1{font-size:34px;line-height:1.1;margin-bottom:16px;}
@@ -101,18 +104,18 @@ canvas#stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:non
 @media(min-width:1024px){.hero h1{font-size:58px;}}
 .hero-sub{font-size:16px;color:var(--comet);line-height:1.65;margin-bottom:28px;max-width:480px;}
 @media(min-width:768px){.hero-sub{font-size:18px;margin-bottom:32px;}}
-
+ 
 /* Hero CTA cluster */
 .hero-cta{display:flex;flex-direction:column;gap:12px;max-width:380px;}
 @media(min-width:480px){.hero-cta{flex-direction:row;align-items:center;}}
 .hero-sub-cta{font-size:12px;color:var(--comet);display:flex;align-items:center;gap:6px;margin-top:8px;}
-
+ 
 /* Social proof strip */
 .proof-strip{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-top:24px;}
 .proof-pill{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--comet);background:var(--nebula);border:1px solid var(--dusk);border-radius:999px;padding:5px 12px;}
 .proof-pill strong{color:var(--mist);}
 .stars-gold{color:#F0C040;letter-spacing:-1px;}
-
+ 
 /* Hero visual */
 .hero-visual{display:flex;justify-content:center;align-items:center;position:relative;}
 .phone-float{animation:float 6s ease-in-out infinite;}
@@ -130,7 +133,7 @@ canvas#stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:non
 .phone-screen{aspect-ratio:9/16;border-radius:18px;overflow:hidden;background:linear-gradient(160deg,#1c1436 0%,#0d1429 55%,#12143A 100%);position:relative;}
 .phone-screen video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;}
 .phone-home-bar{width:56px;height:4px;background:var(--dusk);border-radius:4px;margin:8px auto 0;}
-
+ 
 /* Delivered badge — floating */
 .delivered-badge{
   position:absolute;bottom:32px;right:-16px;
@@ -143,14 +146,14 @@ canvas#stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:non
 }
 @media(min-width:768px){.delivered-badge{right:-24px;font-size:13px;}}
 .delivered-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--success);animation:pulse 2s ease infinite;}
-
+ 
 /* ── Marquee ── */
 .marquee-strip{background:var(--nebula);border-top:1px solid var(--dusk);border-bottom:1px solid var(--dusk);padding:12px 0;overflow:hidden;}
 .marquee-track{display:flex;gap:36px;align-items:center;white-space:nowrap;animation:marqueeL 30s linear infinite;width:max-content;}
 .marquee-strip:hover .marquee-track{animation-play-state:paused;}
 .marquee-item{font-size:12px;color:var(--comet);display:flex;align-items:center;gap:8px;}
 .m-sep{color:var(--dusk);margin:0 4px;}
-
+ 
 /* ── Sections ── */
 .sec{padding:72px 0;}
 @media(min-width:768px){.sec{padding:104px 0;}}
@@ -161,7 +164,7 @@ canvas#stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:non
 @media(min-width:640px){.sec-header h2{font-size:36px;}}
 @media(min-width:768px){.sec-header h2{font-size:44px;}}
 .sec-header p{margin-top:14px;color:var(--comet);font-size:15px;max-width:480px;margin-left:auto;margin-right:auto;}
-
+ 
 /* ── Before / After ── */
 .ba-tabs{display:flex;justify-content:center;gap:8px;margin-bottom:36px;flex-wrap:wrap;}
 .ba-tab{font-size:13px;font-weight:600;color:var(--comet);border:1px solid var(--dusk);border-radius:999px;padding:9px 22px;background:var(--nebula);cursor:pointer;transition:.25s;}
@@ -182,7 +185,7 @@ canvas#stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:non
 .ba-caption{padding:14px 18px;font-size:12px;color:var(--comet);}
 .ba-caption strong{color:var(--mist);}
 .ba-card video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;}
-
+ 
 /* ── How it works ── */
 .steps{display:grid;gap:28px;}
 @media(min-width:768px){.steps{grid-template-columns:repeat(3,1fr);}}
@@ -191,7 +194,7 @@ canvas#stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:non
 .step h3{font-size:21px;margin-bottom:8px;}
 .step p{font-size:14px;color:var(--comet);line-height:1.65;}
 .step-note{margin-top:12px;font-size:12px;color:var(--comet);background:var(--aurora-dim);border:1px solid var(--dusk);border-radius:12px;padding:8px 14px;line-height:1.55;}
-
+ 
 /* ── Testimonials ── */
 .test-grid{display:grid;gap:18px;}
 @media(min-width:640px){.test-grid{gap:22px;}}
@@ -208,7 +211,7 @@ canvas#stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:non
 .author-name{font-weight:600;font-size:13px;}
 .author-loc{font-size:11px;color:var(--comet);}
 .test-tag{font-size:11px;color:var(--aurora);margin-top:10px;}
-
+ 
 /* ── Pricing ── */
 .price-grid{display:grid;gap:20px;max-width:720px;margin:0 auto;}
 @media(min-width:640px){.price-grid{gap:24px;}}
@@ -237,7 +240,7 @@ canvas#stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:non
 .price-cta.outline{border:1.5px solid var(--aurora);color:var(--aurora);background:transparent;transition:.25s;}
 .price-cta.outline:hover{background:var(--aurora);color:var(--night);}
 .money-note{text-align:center;font-size:12px;color:var(--comet);margin-top:24px;display:flex;align-items:center;justify-content:center;gap:6px;}
-
+ 
 /* ── Guarantee ── */
 .guarantee-icon{display:inline-flex;align-items:center;justify-content:center;width:76px;height:76px;border-radius:50%;border:1px solid var(--dusk);background:var(--nebula);margin:0 auto 24px;}
 .guarantee-text{font-size:15px;color:var(--comet);line-height:1.75;max-width:560px;margin:0 auto 32px;}
@@ -247,7 +250,7 @@ canvas#stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:non
 .pillar-emoji{font-size:22px;margin-bottom:8px;}
 .pillar-title{font-size:13px;font-weight:600;color:var(--mist);margin-bottom:4px;}
 .pillar-desc{font-size:11px;color:var(--comet);}
-
+ 
 /* ── FAQ ── */
 .faq-list{max-width:660px;margin:0 auto;display:flex;flex-direction:column;gap:10px;}
 .faq-item{background:var(--nebula);border:1px solid var(--dusk);border-radius:14px;overflow:hidden;transition:border-color .25s;}
@@ -259,7 +262,7 @@ canvas#stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:non
 .faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease;}
 .faq-a-inner{padding:0 20px 16px;font-size:13px;color:var(--comet);line-height:1.65;}
 @media(min-width:640px){.faq-a-inner{padding:0 24px 20px;font-size:14px;}}
-
+ 
 /* ── Checkout ── */
 #checkout{padding:72px 0 80px;}
 @media(min-width:768px){#checkout{padding:96px 0;}}
@@ -293,7 +296,7 @@ canvas#stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:non
 #checkout-success p{color:var(--comet);font-size:13px;line-height:1.7;}
 .success-icon{font-size:44px;margin-bottom:14px;}
 .spinner{width:18px;height:18px;border:2px solid rgba(11,13,26,.3);border-top-color:var(--night);border-radius:50%;animation:spin .7s linear infinite;display:none;}
-
+ 
 /* Final CTA */
 .final-cta{text-align:center;}
 .final-star{font-family:var(--font-d);font-size:56px;color:var(--star);opacity:.25;margin-bottom:12px;line-height:1;}
@@ -301,7 +304,7 @@ canvas#stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:non
 @media(min-width:640px){.final-cta h2{font-size:38px;}}
 @media(min-width:768px){.final-cta h2{font-size:48px;}}
 .final-cta p{color:var(--comet);font-size:15px;max-width:440px;margin:0 auto 32px;}
-
+ 
 /* ── Footer ── */
 footer{background:var(--night);border-top:1px solid var(--dusk);padding:32px 0;}
 .footer-inner{display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center;}
@@ -312,27 +315,48 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:32px 0;}
 .footer-email{font-size:12px;color:var(--comet);margin-top:4px;}
 .sec-badge{display:flex;align-items:center;gap:5px;font-size:10.5px;color:var(--comet);border:1px solid var(--dusk);border-radius:8px;padding:5px 10px;background:var(--nebula);}
 .footer-badges{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;}
-
+ 
 /* ── Reveal ── */
 /* Hero elements are visible by default; JS adds .will-animate before observing */
 .reveal{opacity:1;transform:none;}
 .reveal.will-animate{opacity:0;transform:translateY(24px);transition:opacity .65s cubic-bezier(.16,1,.3,1),transform .65s cubic-bezier(.16,1,.3,1);}
 .reveal.will-animate.visible{opacity:1;transform:none;}
 .rd1{transition-delay:.08s;}.rd2{transition-delay:.16s;}.rd3{transition-delay:.24s;}.rd4{transition-delay:.32s;}
-
+ 
 /* ── Mobile tap targets ── */
 @media(max-width:767px){.btn,.pay-btn,.price-cta,.plan-btn,.faq-q,.ba-tab{min-height:48px;}}
 </style>
+ 
+<!-- ════════════════════════════════════════════════════
+  META PIXEL
+════════════════════════════════════════════════════ -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2107549763310270');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2107549763310270&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+ 
 </head>
 <body>
-
+ 
 <!-- ════════════════════════════════════════════════════ 
   URGENCY BAR 
 ════════════════════════════════════════════════════ -->
 <div id="urgency-bar">
   🔥 Limited-time offer — <span class="gold">$10 OFF</span> today only &nbsp;·&nbsp; Slots remaining: <span class="count-ring" id="slots-count">7</span>
 </div>
-
+ 
 <!-- ════════════════════════════════════════════════════ 
   NAVBAR 
 ════════════════════════════════════════════════════ -->
@@ -344,7 +368,7 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:32px 0;}
     </a>
   </div>
 </nav>
-
+ 
 <!-- ════════════════════════════════════════════════════ 
   HERO 
 ════════════════════════════════════════════════════ -->
@@ -352,7 +376,7 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:32px 0;}
   <canvas id="stars"></canvas>
   <div class="hero-glow"></div>
   <div class="wrap hero-grid">
-
+ 
     <!-- Left: Copy -->
     <div class="hero-copy">
       <p class="eyebrow reveal">✦ &nbsp;Pet Memorial Tributes &nbsp;✦</p>
@@ -363,7 +387,7 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:32px 0;}
       <p class="hero-sub reveal rd2">
         Send us their photos. We craft a stunning 4K memorial video or portrait — handcrafted and delivered to your inbox <strong style="color:var(--mist);">within 24 hours.</strong>
       </p>
-
+ 
       <div class="hero-cta reveal rd3">
         <a href="#checkout" class="btn btn-gold">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
@@ -375,7 +399,7 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:32px 0;}
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#7B6FD4" stroke-width="2.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         Secure checkout &nbsp;·&nbsp; No subscription &nbsp;·&nbsp; Money-back guarantee
       </p>
-
+ 
       <!-- Social proof -->
       <div class="proof-strip reveal rd4">
         <div class="proof-pill"><span class="stars-gold">★★★★★</span>&nbsp;<strong>4.9</strong>&nbsp;— 200+ families</div>
@@ -383,7 +407,7 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:32px 0;}
         <div class="proof-pill">✔ 4K HD Quality</div>
       </div>
     </div>
-
+ 
     <!-- Right: Phone mockup -->
     <div class="hero-visual reveal rd2">
       <div class="phone-float" style="position:relative;">
@@ -426,10 +450,10 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:32px 0;}
         </div>
       </div>
     </div>
-
+ 
   </div>
 </section>
-
+ 
 <!-- ════════════════════════════════════════════════════ 
   MARQUEE 
 ════════════════════════════════════════════════════ -->
@@ -450,7 +474,7 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:32px 0;}
     <span class="marquee-item">🐾 200+ families honored so far</span>
   </div>
 </div>
-
+ 
 <!-- ════════════════════════════════════════════════════ 
   HOW IT WORKS 
 ════════════════════════════════════════════════════ -->
@@ -483,7 +507,7 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:32px 0;}
     </div>
   </div>
 </section>
-
+ 
 <!-- ════════════════════════════════════════════════════ 
   BEFORE / AFTER EXAMPLES 
 ════════════════════════════════════════════════════ -->
@@ -494,12 +518,12 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:32px 0;}
       <h2>From your photos to a <em class="gold">masterpiece</em></h2>
       <p>Every tribute is crafted to capture your pet's exact traits — fur, eyes, markings.</p>
     </div>
-
+ 
     <div class="ba-tabs">
       <button class="ba-tab active" data-target="ba-photos">📷 Photo Portraits</button>
       <button class="ba-tab" data-target="ba-videos">🎬 Cinematic Videos</button>
     </div>
-
+ 
     <div class="ba-panel-group active" id="ba-photos">
       <div class="ba-grid">
         <div class="ba-card reveal">
@@ -534,7 +558,7 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:32px 0;}
         </div>
       </div>
     </div>
-
+ 
     <div class="ba-panel-group" id="ba-videos">
       <div class="ba-grid">
         <div class="ba-card reveal">
@@ -565,7 +589,7 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:32px 0;}
         </div>
       </div>
     </div>
-
+ 
     <div style="text-align:center;margin-top:36px;" class="reveal">
       <a href="#checkout" class="btn btn-gold">
         Create a Tribute Like This →
@@ -573,7 +597,7 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:32px 0;}
     </div>
   </div>
 </section>
-
+ 
 <!-- ════════════════════════════════════════════════════ 
   TESTIMONIALS 
 ════════════════════════════════════════════════════ -->
@@ -614,7 +638,7 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:32px 0;}
     </div>
   </div>
 </section>
-
+ 
 <!-- ════════════════════════════════════════════════════ 
   PRICING 
 ════════════════════════════════════════════════════ -->
@@ -676,7 +700,7 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:32px 0;}
     </p>
   </div>
 </section>
-
+ 
 <!-- ════════════════════════════════════════════════════ 
   GUARANTEE 
 ════════════════════════════════════════════════════ -->
@@ -696,7 +720,7 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:32px 0;}
     </div>
   </div>
 </section>
-
+ 
 <!-- ════════════════════════════════════════════════════ 
   FAQ 
 ════════════════════════════════════════════════════ -->
@@ -717,7 +741,7 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:32px 0;}
     </div>
   </div>
 </section>
-
+ 
 <!-- ════════════════════════════════════════════════════ 
   FINAL CTA 
 ════════════════════════════════════════════════════ -->
@@ -733,7 +757,7 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:32px 0;}
     <p style="margin-top:14px;font-size:12px;color:var(--comet);" class="reveal">🔒 Secure &nbsp;·&nbsp; No subscription &nbsp;·&nbsp; 100% satisfaction guaranteed</p>
   </div>
 </section>
-
+ 
 <!-- ════════════════════════════════════════════════════ 
   CHECKOUT 
 ════════════════════════════════════════════════════ -->
@@ -784,7 +808,7 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:32px 0;}
     </div>
   </div>
 </section>
-
+ 
 <!-- ════════════════════════════════════════════════════ 
   FOOTER 
 ════════════════════════════════════════════════════ -->
@@ -806,12 +830,12 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:32px 0;}
     </div>
   </div>
 </footer>
-
+ 
 <!-- SCRIPTS -->
 <script>
 // ── Globals exposed for onclick= attributes in HTML ──────────
 var currentPlan = 'memory';
-
+ 
 var PLANS = {
   memory: {
     label: 'Memory', price: 29,
@@ -833,7 +857,7 @@ var PLANS = {
     ]
   }
 };
-
+ 
 function renderFeatures(plan) {
   var wrap = document.getElementById('summary-features');
   if (!wrap) return;
@@ -845,7 +869,7 @@ function renderFeatures(plan) {
     wrap.appendChild(d);
   });
 }
-
+ 
 function selectPlan(plan) {
   if (!PLANS[plan]) return;
   currentPlan = plan;
@@ -857,19 +881,36 @@ function selectPlan(plan) {
   var payLabel = document.getElementById('pay-label');
   if (payLabel) payLabel.textContent = 'Pay $' + d.price.toFixed(2) + ' — Continue to Stripe';
   renderFeatures(plan);
+ 
+  // Meta Pixel: track plan selection intent
+  if (typeof fbq === 'function') {
+    fbq('trackCustom', 'SelectPlan', { plan: plan, value: d.price, currency: 'USD' });
+  }
 }
-
+ 
 async function handleCheckout() {
   var btn     = document.getElementById('pay-btn');
   var label   = document.getElementById('pay-label');
   var spinner = document.getElementById('pay-spinner');
   var errEl   = document.getElementById('checkout-error');
-
+ 
   errEl.style.display = 'none';
   btn.disabled = true;
   label.style.display = 'none';
   spinner.style.display = 'block';
-
+ 
+  // Meta Pixel: user started checkout
+  if (typeof fbq === 'function') {
+    var planData = PLANS[currentPlan];
+    fbq('track', 'InitiateCheckout', {
+      value: planData.price,
+      currency: 'USD',
+      content_name: planData.label,
+      content_ids: [currentPlan],
+      content_type: 'product'
+    });
+  }
+ 
   try {
     var response = await fetch('https://eternal-paws-original-production.up.railway.app/create-checkout', {
       method: 'POST',
@@ -888,13 +929,13 @@ async function handleCheckout() {
     spinner.style.display = 'none';
   }
 }
-
+ 
 // ── Init on DOMContentLoaded ──────────────────────────────────
 document.addEventListener('DOMContentLoaded', function() {
-
+ 
   // Render default plan features
   renderFeatures('memory');
-
+ 
   // ── Navbar scroll ────────────────────────────────────────
   var navbar = document.getElementById('navbar');
   if (navbar) {
@@ -902,7 +943,7 @@ document.addEventListener('DOMContentLoaded', function() {
       navbar.classList.toggle('scrolled', window.scrollY > 40);
     }, { passive: true });
   }
-
+ 
   // ── Reveal on scroll ─────────────────────────────────────
   var revEls = document.querySelectorAll('.reveal');
   var viewH = window.innerHeight;
@@ -922,7 +963,7 @@ document.addEventListener('DOMContentLoaded', function() {
   } else {
     revEls.forEach(function(el) { el.classList.remove('will-animate'); });
   }
-
+ 
   // ── Starfield ────────────────────────────────────────────
   var canvas = document.getElementById('stars');
   if (canvas) {
@@ -958,7 +999,7 @@ document.addEventListener('DOMContentLoaded', function() {
     resizeCanvas();
     drawStars();
   }
-
+ 
   // ── FAQ accordion ────────────────────────────────────────
   document.querySelectorAll('.faq-item').forEach(function(item) {
     var btn = item.querySelector('.faq-q');
@@ -976,7 +1017,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   });
-
+ 
   // ── Before/After tabs ────────────────────────────────────
   document.querySelectorAll('.ba-tab').forEach(function(tab) {
     tab.addEventListener('click', function() {
@@ -992,7 +1033,7 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
   });
-
+ 
   // ── Urgency bar slots countdown ──────────────────────────
   var slotsEl = document.getElementById('slots-count');
   if (slotsEl) {
@@ -1008,7 +1049,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     setTimeout(maybeDecrement, 300000 + Math.random() * 420000);
   }
-
+ 
   // ── Handle Stripe redirect result ────────────────────────
   var params = new URLSearchParams(window.location.search);
   if (params.get('success') === 'true') {
@@ -1022,8 +1063,9 @@ document.addEventListener('DOMContentLoaded', function() {
     var checkoutEl2 = document.getElementById('checkout');
     if (checkoutEl2) checkoutEl2.scrollIntoView({ behavior: 'smooth' });
   }
-
+ 
 });
 </script>
 </body>
 </html>
+ 
