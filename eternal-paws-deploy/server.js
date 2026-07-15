@@ -1,15 +1,18 @@
 // ═══════════════════════════════════════════════════════════════
 //  Eternal Paws — server.js  (production-ready)
-//  Stack: Express 5 · Stripe Checkout · Nodemailer
+//  Stack: Express 5 · Stripe Checkout · Resend (email API)
 // ═══════════════════════════════════════════════════════════════
 
-const express    = require("express");
-const cors       = require("cors");
-const nodemailer = require("nodemailer");
-const path       = require("path");
+const express = require("express");
+const cors    = require("cors");
+const path    = require("path");
+const { Resend } = require("resend");
 
 // ── Stripe (chave vem de variável de ambiente em produção) ──────
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+
+// ── Resend (API de e-mail via HTTPS, sem depender de porta SMTP) ─
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const app  = express();
 const PORT = process.env.PORT || 3000;
@@ -18,9 +21,8 @@ const PORT = process.env.PORT || 3000;
 const BASE_URL = process.env.BASE_URL || "https://eternal-paws-original-production.up.railway.app";
 
 // ── Email ───────────────────────────────────────────────────────
-const EMAIL_USER = process.env.EMAIL_USER;
-const EMAIL_PASS = process.env.EMAIL_PASS;
 const EMAIL_TO   = process.env.EMAIL_TO;
+const EMAIL_FROM = process.env.EMAIL_FROM || "Eternal Paws <onboarding@resend.dev>";
 
 // ── Webhook ─────────────────────────────────────────────────────
 const WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET;
@@ -141,9 +143,7 @@ async function handleWebhook(req, res) {
       sendCustomerConfirmation({ customerName, customerEmail, planLabel }),
     ]).then(([ownerResult, customerResult]) => {
       if (ownerResult.status === "rejected") {
-        console.error("🚨 OWNER EMAIL FAILED — check Gmail credentials/network in Railway env vars");
-        console.error("   Customer:", customerEmail, "| Plan:", planLabel, "| Amount:", amountPaid);
-        console.error("   Reason:", ownerResult.reason?.message || ownerResult.reason);
+        console.error("🚨 OWNER EMAIL FAILED:", ownerResult.reason?.message || ownerResult.reason);
       }
       if (customerResult.status === "rejected") {
         console.error("🚨 CUSTOMER EMAIL FAILED — confirmation not sent to:", customerEmail);
@@ -161,23 +161,12 @@ async function handleWebhook(req, res) {
 }
 
 // ═══════════════════════════════════════════════════════════════
-//  EMAIL HELPERS
+//  EMAIL HELPERS  (via Resend API — HTTPS, sem bloqueio de porta)
 // ═══════════════════════════════════════════════════════════════
 
-function createTransporter() {
-  return nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587,
-    secure: false, // STARTTLS em vez de SSL direto
-    auth: { user: EMAIL_USER, pass: EMAIL_PASS },
-    family: 4,
-  });
-}
-
 async function sendOwnerNotification({ customerName, customerEmail, planLabel, amountPaid }) {
-  const transporter = createTransporter();
-  await transporter.sendMail({
-    from:    `"Eternal Paws" <${EMAIL_USER}>`,
+  const { data, error } = await resend.emails.send({
+    from:    EMAIL_FROM,
     to:      EMAIL_TO,
     subject: `🐾 New sale! ${planLabel} — ${amountPaid}`,
     html: `
@@ -193,14 +182,16 @@ async function sendOwnerNotification({ customerName, customerEmail, planLabel, a
       </div>
     `,
   });
-  console.log("📧 Owner notification sent to:", EMAIL_TO);
+
+  if (error) throw new Error(error.message || JSON.stringify(error));
+  console.log("📧 Owner notification sent to:", EMAIL_TO, "| id:", data?.id);
 }
 
 async function sendCustomerConfirmation({ customerName, customerEmail, planLabel }) {
   const firstName = customerName.split(" ")[0] || "there";
-  const transporter = createTransporter();
-  await transporter.sendMail({
-    from:    `"Eternal Paws" <${EMAIL_USER}>`,
+
+  const { data, error } = await resend.emails.send({
+    from:    EMAIL_FROM,
     to:      customerEmail,
     subject: `Your tribute is on its way 🐾 — Eternal Paws`,
     html: `
@@ -235,7 +226,9 @@ async function sendCustomerConfirmation({ customerName, customerEmail, planLabel
       </div>
     `,
   });
-  console.log("📧 Customer confirmation sent to:", customerEmail);
+
+  if (error) throw new Error(error.message || JSON.stringify(error));
+  console.log("📧 Customer confirmation sent to:", customerEmail, "| id:", data?.id);
 }
 
 // ═══════════════════════════════════════════════════════════════
