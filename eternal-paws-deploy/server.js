@@ -167,10 +167,10 @@ async function handleWebhook(req, res) {
 function createTransporter() {
   return nodemailer.createTransport({
     host: "smtp.gmail.com",
-    port: 465,
-    secure: true,
+    port: 587,
+    secure: false, // STARTTLS em vez de SSL direto
     auth: { user: EMAIL_USER, pass: EMAIL_PASS },
-    family: 4, // força IPv4 — evita erro ENETUNREACH em ambientes cloud com IPv6 quebrado
+    family: 4,
   });
 }
 
