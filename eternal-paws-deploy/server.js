@@ -126,31 +126,35 @@ async function handleWebhook(req, res) {
 
     const customerEmail = session.customer_details?.email || "—";
     const customerName  = session.customer_details?.name  || "—";
-    const plan          = session.metadata?.plan          || "memory";
-    const planLabel     = PLANS[plan]?.label              || plan;
-    const amountPaid    = `$${(session.amount_total / 100).toFixed(2)}`;
+    const plan           = session.metadata?.plan          || "memory";
+    const planLabel      = PLANS[plan]?.label               || plan;
+    const amountPaid     = `$${(session.amount_total / 100).toFixed(2)}`;
 
     console.log(`✅ Sale confirmed: ${customerName} | ${customerEmail} | ${planLabel}`);
 
-    const results = await Promise.allSettled([
+    // ── Responde ao Stripe IMEDIATAMENTE — evita timeout ──────
+    res.json({ received: true });
+
+    // ── Envia os e-mails DEPOIS, sem o Stripe esperar por isso ──
+    Promise.allSettled([
       sendOwnerNotification({ customerName, customerEmail, planLabel, amountPaid }),
       sendCustomerConfirmation({ customerName, customerEmail, planLabel }),
-    ]);
+    ]).then(([ownerResult, customerResult]) => {
+      if (ownerResult.status === "rejected") {
+        console.error("🚨 OWNER EMAIL FAILED — check Gmail credentials/network in Railway env vars");
+        console.error("   Customer:", customerEmail, "| Plan:", planLabel, "| Amount:", amountPaid);
+        console.error("   Reason:", ownerResult.reason?.message || ownerResult.reason);
+      }
+      if (customerResult.status === "rejected") {
+        console.error("🚨 CUSTOMER EMAIL FAILED — confirmation not sent to:", customerEmail);
+        console.error("   Reason:", customerResult.reason?.message || customerResult.reason);
+      }
+      if (ownerResult.status === "fulfilled" && customerResult.status === "fulfilled") {
+        console.log("✅ Both emails sent successfully.");
+      }
+    });
 
-    // ── Visible fallback: log any email failures so they appear in Railway logs ──
-    const [ownerResult, customerResult] = results;
-    if (ownerResult.status === "rejected") {
-      console.error("🚨 OWNER EMAIL FAILED — check Gmail credentials in Railway env vars");
-      console.error("   Customer:", customerEmail, "| Plan:", planLabel, "| Amount:", amountPaid);
-      console.error("   Reason:", ownerResult.reason?.message || ownerResult.reason);
-    }
-    if (customerResult.status === "rejected") {
-      console.error("🚨 CUSTOMER EMAIL FAILED — confirmation not sent to:", customerEmail);
-      console.error("   Reason:", customerResult.reason?.message || customerResult.reason);
-    }
-    if (ownerResult.status === "fulfilled" && customerResult.status === "fulfilled") {
-      console.log("✅ Both emails sent successfully.");
-    }
+    return; // já respondemos ao Stripe, encerra aqui
   }
 
   res.json({ received: true });
@@ -162,81 +166,76 @@ async function handleWebhook(req, res) {
 
 function createTransporter() {
   return nodemailer.createTransport({
-    service: "gmail",
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
     auth: { user: EMAIL_USER, pass: EMAIL_PASS },
+    family: 4, // força IPv4 — evita erro ENETUNREACH em ambientes cloud com IPv6 quebrado
   });
 }
 
 async function sendOwnerNotification({ customerName, customerEmail, planLabel, amountPaid }) {
-  try {
-    const transporter = createTransporter();
-    await transporter.sendMail({
-      from:    `"Eternal Paws" <${EMAIL_USER}>`,
-      to:      EMAIL_TO,
-      subject: `🐾 New sale! ${planLabel} — ${amountPaid}`,
-      html: `
-        <div style="font-family:sans-serif;max-width:520px;margin:auto;background:#0B0D1A;color:#E8E4F8;padding:32px;border-radius:12px;">
-          <h2 style="color:#C8B96A;font-family:Georgia,serif;font-weight:300;">🐾 New sale received</h2>
-          <hr style="border:none;border-top:1px solid #252B52;margin:16px 0;"/>
-          <p><b>Customer:</b> ${customerName}</p>
-          <p><b>Email:</b> <a href="mailto:${customerEmail}" style="color:#7B6FD4;">${customerEmail}</a></p>
-          <p><b>Package:</b> ${planLabel}</p>
-          <p><b>Amount paid:</b> ${amountPaid}</p>
-          <hr style="border:none;border-top:1px solid #252B52;margin:16px 0;"/>
-          <p style="color:#A89ED4;font-size:13px;">Reply to the customer's email to request their pet photos and get started.</p>
-        </div>
-      `,
-    });
-    console.log("📧 Owner notification sent to:", EMAIL_TO);
-  } catch (err) {
-    console.error("❌ Error sending owner email:", err.message);
-  }
+  const transporter = createTransporter();
+  await transporter.sendMail({
+    from:    `"Eternal Paws" <${EMAIL_USER}>`,
+    to:      EMAIL_TO,
+    subject: `🐾 New sale! ${planLabel} — ${amountPaid}`,
+    html: `
+      <div style="font-family:sans-serif;max-width:520px;margin:auto;background:#0B0D1A;color:#E8E4F8;padding:32px;border-radius:12px;">
+        <h2 style="color:#C8B96A;font-family:Georgia,serif;font-weight:300;">🐾 New sale received</h2>
+        <hr style="border:none;border-top:1px solid #252B52;margin:16px 0;"/>
+        <p><b>Customer:</b> ${customerName}</p>
+        <p><b>Email:</b> <a href="mailto:${customerEmail}" style="color:#7B6FD4;">${customerEmail}</a></p>
+        <p><b>Package:</b> ${planLabel}</p>
+        <p><b>Amount paid:</b> ${amountPaid}</p>
+        <hr style="border:none;border-top:1px solid #252B52;margin:16px 0;"/>
+        <p style="color:#A89ED4;font-size:13px;">Reply to the customer's email to request their pet photos and get started.</p>
+      </div>
+    `,
+  });
+  console.log("📧 Owner notification sent to:", EMAIL_TO);
 }
 
 async function sendCustomerConfirmation({ customerName, customerEmail, planLabel }) {
   const firstName = customerName.split(" ")[0] || "there";
-  try {
-    const transporter = createTransporter();
-    await transporter.sendMail({
-      from:    `"Eternal Paws" <${EMAIL_USER}>`,
-      to:      customerEmail,
-      subject: `Your tribute is on its way 🐾 — Eternal Paws`,
-      html: `
-        <div style="font-family:sans-serif;max-width:560px;margin:auto;background:#0B0D1A;color:#E8E4F8;padding:40px;border-radius:12px;">
-          <h1 style="font-family:Georgia,serif;font-weight:300;color:#C8B96A;font-size:32px;">Eternal <em>Paws</em> ✦</h1>
-          <hr style="border:none;border-top:1px solid #252B52;margin:24px 0;"/>
-          <h2 style="font-family:Georgia,serif;font-weight:300;font-size:24px;">Thank you, ${firstName}.</h2>
-          <p style="color:#A89ED4;line-height:1.7;margin-top:12px;">
-            We received your order for <strong style="color:#E8E4F8;">${planLabel}</strong>.<br/>
-            Now we need your pet's photos to get started.
-          </p>
-          <div style="background:#1A1F3A;border:1px solid #252B52;border-radius:10px;padding:24px;margin:28px 0;">
-            <h3 style="font-family:Georgia,serif;font-weight:300;color:#C8B96A;margin-bottom:12px;">📸 Next step — send your photos</h3>
-            <p style="color:#A89ED4;font-size:14px;line-height:1.7;">
-              Simply <b style="color:#E8E4F8;">reply to this email</b> and attach your favorite photos of your pet.<br/>
-              The more photos you share, the more personal your tribute will be.
-            </p>
-            <ul style="color:#A89ED4;font-size:14px;line-height:2;margin-top:8px;padding-left:20px;">
-              <li>✦ Any format: JPG, PNG, HEIC</li>
-              <li>✦ Send 5–20 photos for best results</li>
-              <li>✦ Include close-ups of their face, eyes, and fur</li>
-            </ul>
-          </div>
+  const transporter = createTransporter();
+  await transporter.sendMail({
+    from:    `"Eternal Paws" <${EMAIL_USER}>`,
+    to:      customerEmail,
+    subject: `Your tribute is on its way 🐾 — Eternal Paws`,
+    html: `
+      <div style="font-family:sans-serif;max-width:560px;margin:auto;background:#0B0D1A;color:#E8E4F8;padding:40px;border-radius:12px;">
+        <h1 style="font-family:Georgia,serif;font-weight:300;color:#C8B96A;font-size:32px;">Eternal <em>Paws</em> ✦</h1>
+        <hr style="border:none;border-top:1px solid #252B52;margin:24px 0;"/>
+        <h2 style="font-family:Georgia,serif;font-weight:300;font-size:24px;">Thank you, ${firstName}.</h2>
+        <p style="color:#A89ED4;line-height:1.7;margin-top:12px;">
+          We received your order for <strong style="color:#E8E4F8;">${planLabel}</strong>.<br/>
+          Now we need your pet's photos to get started.
+        </p>
+        <div style="background:#1A1F3A;border:1px solid #252B52;border-radius:10px;padding:24px;margin:28px 0;">
+          <h3 style="font-family:Georgia,serif;font-weight:300;color:#C8B96A;margin-bottom:12px;">📸 Next step — send your photos</h3>
           <p style="color:#A89ED4;font-size:14px;line-height:1.7;">
-            Your tribute will be ready within <strong style="color:#E8E4F8;">24 hours</strong> of receiving your photos.
+            Simply <b style="color:#E8E4F8;">reply to this email</b> and attach your favorite photos of your pet.<br/>
+            The more photos you share, the more personal your tribute will be.
           </p>
-          <hr style="border:none;border-top:1px solid #252B52;margin:28px 0;"/>
-          <p style="color:#7B6FD4;font-size:12px;text-align:center;">
-            Questions? Just reply to this email.<br/>
-            Eternal Paws — crafted with love, one pet at a time 🐾
-          </p>
+          <ul style="color:#A89ED4;font-size:14px;line-height:2;margin-top:8px;padding-left:20px;">
+            <li>✦ Any format: JPG, PNG, HEIC</li>
+            <li>✦ Send 5–20 photos for best results</li>
+            <li>✦ Include close-ups of their face, eyes, and fur</li>
+          </ul>
         </div>
-      `,
-    });
-    console.log("📧 Customer confirmation sent to:", customerEmail);
-  } catch (err) {
-    console.error("❌ Error sending customer email:", err.message);
-  }
+        <p style="color:#A89ED4;font-size:14px;line-height:1.7;">
+          Your tribute will be ready within <strong style="color:#E8E4F8;">24 hours</strong> of receiving your photos.
+        </p>
+        <hr style="border:none;border-top:1px solid #252B52;margin:28px 0;"/>
+        <p style="color:#7B6FD4;font-size:12px;text-align:center;">
+          Questions? Just reply to this email.<br/>
+          Eternal Paws — crafted with love, one pet at a time 🐾
+        </p>
+      </div>
+    `,
+  });
+  console.log("📧 Customer confirmation sent to:", customerEmail);
 }
 
 // ═══════════════════════════════════════════════════════════════
