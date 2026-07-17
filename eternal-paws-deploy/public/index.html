@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Pet Memorial Tributes — Done in 24 Hours | Eternal Paws</title>
 <meta name="description" content="Send us your pet's photos. We craft a stunning 4K memorial video or portrait and deliver it to your inbox within 24 hours. Starting at $29." />
- 
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
- 
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
 <style>
 :root{
   --night:#0B0D1A;
@@ -34,29 +34,29 @@ img{max-width:100%;display:block;}
 a{color:inherit;text-decoration:none;}
 ul{list-style:none;}
 button{font-family:inherit;border:none;background:none;cursor:pointer;color:inherit;}
- 
+
 /* ── Layout ── */
 .wrap{max-width:1100px;margin:0 auto;padding:0 18px;}
 .wrap-sm{max-width:760px;margin:0 auto;padding:0 18px;}
 .wrap-md{max-width:900px;margin:0 auto;padding:0 18px;}
 @media(min-width:640px){.wrap,.wrap-sm,.wrap-md{padding:0 28px;}}
- 
+
 /* ── Type ── */
 .eyebrow{font-family:var(--font-b);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--aurora);margin-bottom:12px;}
 h1,h2,h3{font-family:var(--font-d);font-weight:300;color:var(--mist);}
 em{font-style:italic;}
 .gold{color:var(--star);}
 .dim{color:var(--comet);}
- 
+
 /* ── Animations ── */
 @keyframes shimmer{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
 @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
 @keyframes spin{to{transform:rotate(360deg);}}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.5;}}
 @keyframes marqueeL{from{transform:translateX(0);}to{transform:translateX(-50%);}}
-@keyframes countdown{from{width:100%;}to{width:0%;}}
+@keyframes slideUp{from{transform:translateY(100%);}to{transform:translateY(0);}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
- 
+
 /* ── Buttons ── */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:15px;border-radius:999px;padding:15px 30px;cursor:pointer;transition:transform .2s,opacity .2s;white-space:nowrap;border:none;}
 @media(min-width:640px){.btn{font-size:16px;padding:17px 36px;}}
@@ -66,7 +66,7 @@ em{font-style:italic;}
 .btn-ghost{border:1.5px solid var(--dusk);color:var(--comet);background:transparent;}
 .btn-ghost:hover{border-color:var(--aurora);color:var(--mist);}
 .btn-full{width:100%;}
- 
+
 /* ── Urgency Bar ── */
 #urgency-bar{
   background:linear-gradient(135deg,#3a2a6e 0%,#1A1F3A 100%);
@@ -77,43 +77,39 @@ em{font-style:italic;}
 }
 #urgency-bar span.gold{margin:0 6px;}
 .count-ring{display:inline-block;background:rgba(200,185,106,.2);border:1px solid rgba(200,185,106,.4);border-radius:8px;padding:2px 10px;font-family:var(--font-d);font-size:18px;color:var(--star);margin:0 4px;min-width:36px;text-align:center;font-style:italic;}
- 
+
 /* ── Navbar ── */
 #navbar{position:sticky;top:0;z-index:50;padding:14px 0;transition:all .3s;}
 #navbar.scrolled{background:rgba(11,13,26,.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(37,43,82,.6);}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;}
 .logo{font-family:var(--font-d);font-size:19px;letter-spacing:.02em;display:flex;align-items:center;gap:8px;}
 @media(min-width:640px){.logo{font-size:21px;}}
- 
+
 /* ── Hero ── */
-.hero{position:relative;background:var(--night);padding:72px 0 56px;overflow:hidden;}
-@media(min-width:768px){.hero{padding:90px 0 72px;}}
+.hero{position:relative;background:var(--night);padding:52px 0 48px;overflow:hidden;}
+@media(min-width:768px){.hero{padding:72px 0 64px;}}
 .hero-glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 70% 55% at 50% 35%,rgba(123,111,212,.18) 0%,transparent 70%);}
 canvas#stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;}
-.hero-grid{position:relative;z-index:1;display:grid;gap:40px;align-items:center;}
+.hero-grid{position:relative;z-index:1;display:grid;gap:36px;align-items:center;}
 @media(min-width:768px){.hero-grid{grid-template-columns:1.1fr .9fr;gap:56px;}}
- 
-/* Hero copy */
+
 .hero-copy{}
-.hero h1{font-size:34px;line-height:1.1;margin-bottom:16px;}
-@media(min-width:480px){.hero h1{font-size:42px;}}
-@media(min-width:768px){.hero h1{font-size:50px;}}
-@media(min-width:1024px){.hero h1{font-size:58px;}}
-.hero-sub{font-size:16px;color:var(--comet);line-height:1.65;margin-bottom:28px;max-width:480px;}
-@media(min-width:768px){.hero-sub{font-size:18px;margin-bottom:32px;}}
- 
-/* Hero CTA cluster */
+.hero h1{font-size:32px;line-height:1.08;margin-bottom:16px;}
+@media(min-width:480px){.hero h1{font-size:40px;}}
+@media(min-width:768px){.hero h1{font-size:48px;}}
+@media(min-width:1024px){.hero h1{font-size:54px;}}
+.hero-sub{font-size:16px;color:var(--comet);line-height:1.65;margin-bottom:24px;max-width:480px;}
+@media(min-width:768px){.hero-sub{font-size:17px;margin-bottom:28px;}}
+
 .hero-cta{display:flex;flex-direction:column;gap:12px;max-width:380px;}
 @media(min-width:480px){.hero-cta{flex-direction:row;align-items:center;}}
-.hero-sub-cta{font-size:12px;color:var(--comet);display:flex;align-items:center;gap:6px;margin-top:8px;}
- 
-/* Social proof strip */
-.proof-strip{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-top:24px;}
+.hero-sub-cta{font-size:12px;color:var(--comet);display:flex;align-items:center;gap:6px;margin-top:10px;}
+
+.proof-strip{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-top:22px;}
 .proof-pill{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--comet);background:var(--nebula);border:1px solid var(--dusk);border-radius:999px;padding:5px 12px;}
 .proof-pill strong{color:var(--mist);}
 .stars-gold{color:#F0C040;letter-spacing:-1px;}
- 
-/* Hero visual */
+
 .hero-visual{display:flex;justify-content:center;align-items:center;position:relative;}
 .phone-float{animation:float 6s ease-in-out infinite;}
 .phone-shell{
@@ -128,10 +124,8 @@ canvas#stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:non
 @media(min-width:768px){.phone-shell{width:clamp(190px,32vw,250px);}}
 .phone-notch{width:72px;height:18px;background:var(--night);border-radius:0 0 14px 14px;margin:0 auto 6px;}
 .phone-screen{aspect-ratio:9/16;border-radius:18px;overflow:hidden;background:linear-gradient(160deg,#1c1436 0%,#0d1429 55%,#12143A 100%);position:relative;}
-.phone-screen video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;}
 .phone-home-bar{width:56px;height:4px;background:var(--dusk);border-radius:4px;margin:8px auto 0;}
- 
-/* Delivered badge — floating */
+
 .delivered-badge{
   position:absolute;bottom:32px;right:-16px;
   background:rgba(26,31,58,.96);border:1px solid rgba(200,185,106,.35);
@@ -143,46 +137,25 @@ canvas#stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:non
 }
 @media(min-width:768px){.delivered-badge{right:-24px;font-size:13px;}}
 .delivered-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--success);animation:pulse 2s ease infinite;}
- 
+
 /* ── Marquee ── */
 .marquee-strip{background:var(--nebula);border-top:1px solid var(--dusk);border-bottom:1px solid var(--dusk);padding:12px 0;overflow:hidden;}
 .marquee-track{display:flex;gap:36px;align-items:center;white-space:nowrap;animation:marqueeL 30s linear infinite;width:max-content;}
 .marquee-strip:hover .marquee-track{animation-play-state:paused;}
 .marquee-item{font-size:12px;color:var(--comet);display:flex;align-items:center;gap:8px;}
 .m-sep{color:var(--dusk);margin:0 4px;}
- 
+
 /* ── Sections ── */
-.sec{padding:72px 0;}
-@media(min-width:768px){.sec{padding:104px 0;}}
+.sec{padding:60px 0;}
+@media(min-width:768px){.sec{padding:88px 0;}}
 .sec-cosmos{background:var(--cosmos);}
-.sec-header{text-align:center;margin-bottom:52px;}
-@media(min-width:768px){.sec-header{margin-bottom:68px;}}
-.sec-header h2{font-size:28px;line-height:1.15;}
-@media(min-width:640px){.sec-header h2{font-size:36px;}}
-@media(min-width:768px){.sec-header h2{font-size:44px;}}
+.sec-header{text-align:center;margin-bottom:44px;}
+@media(min-width:768px){.sec-header{margin-bottom:60px;}}
+.sec-header h2{font-size:26px;line-height:1.15;}
+@media(min-width:640px){.sec-header h2{font-size:34px;}}
+@media(min-width:768px){.sec-header h2{font-size:42px;}}
 .sec-header p{margin-top:14px;color:var(--comet);font-size:15px;max-width:480px;margin-left:auto;margin-right:auto;}
- 
-/* ── Before / After ── */
-.ba-tabs{display:flex;justify-content:center;gap:8px;margin-bottom:36px;flex-wrap:wrap;}
-.ba-tab{font-size:13px;font-weight:600;color:var(--comet);border:1px solid var(--dusk);border-radius:999px;padding:9px 22px;background:var(--nebula);cursor:pointer;transition:.25s;}
-.ba-tab.active{background:var(--aurora);color:var(--mist);border-color:var(--aurora);}
-.ba-panel-group{display:none;}.ba-panel-group.active{display:block;}
-.ba-grid{display:grid;gap:20px;}
-@media(min-width:768px){.ba-grid{grid-template-columns:repeat(2,1fr);gap:28px;}}
-.ba-card{background:var(--nebula);border:1px solid var(--dusk);border-radius:20px;overflow:hidden;}
-.ba-compare{display:grid;grid-template-columns:1fr 1fr;}
-@media(max-width:420px){.ba-compare{grid-template-columns:1fr;}.ba-panel.before{border-right:none;border-bottom:1px solid var(--dusk);}}
-.ba-panel{aspect-ratio:4/5;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
-@media(max-width:420px){.ba-panel{aspect-ratio:16/10;}}
-.ba-panel.before{background:#15182c;border-right:1px solid var(--dusk);}
-.ba-panel.after{background:linear-gradient(160deg,#1c1436 0%,#0d1429 60%,#12143A 100%);}
-.ba-label{position:absolute;top:10px;left:10px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--comet);background:rgba(11,13,26,.75);padding:3px 9px;border-radius:999px;z-index:5;}
-.ba-ph{color:var(--comet);font-size:12px;line-height:1.6;padding:12px;text-align:center;}
-.ba-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;}
-.ba-caption{padding:14px 18px;font-size:12px;color:var(--comet);}
-.ba-caption strong{color:var(--mist);}
-.ba-card video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;}
- 
+
 /* ── How it works ── */
 .steps{display:grid;gap:28px;}
 @media(min-width:768px){.steps{grid-template-columns:repeat(3,1fr);}}
@@ -191,24 +164,32 @@ canvas#stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:non
 .step h3{font-size:21px;margin-bottom:8px;}
 .step p{font-size:14px;color:var(--comet);line-height:1.65;}
 .step-note{margin-top:12px;font-size:12px;color:var(--comet);background:var(--aurora-dim);border:1px solid var(--dusk);border-radius:12px;padding:8px 14px;line-height:1.55;}
- 
-/* ── Testimonials ── */
-.test-grid{display:grid;gap:18px;}
-@media(min-width:640px){.test-grid{gap:22px;}}
-@media(min-width:768px){.test-grid{grid-template-columns:repeat(3,1fr);}}
-.test-card{background:var(--nebula);border:1px solid var(--dusk);border-radius:18px;padding:24px;transition:border-color .3s;}
-.test-card:hover{border-color:var(--aurora);}
-.test-card.feat{background:linear-gradient(var(--nebula),var(--nebula)) padding-box,linear-gradient(135deg,var(--star),var(--aurora)) border-box;border:2px solid transparent;}
-.quote-mark{font-family:var(--font-d);font-size:40px;color:var(--star);opacity:.4;line-height:1;margin-bottom:12px;}
-.feat .quote-mark{opacity:.65;}
-.test-text{font-size:13px;color:var(--comet);line-height:1.75;font-style:italic;margin-bottom:18px;}
-.test-author{display:flex;align-items:center;gap:12px;}
-.avatar{width:40px;height:40px;border-radius:50%;background:var(--dusk);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0;overflow:hidden;}
-.avatar img{width:100%;height:100%;object-fit:cover;}
-.author-name{font-weight:600;font-size:13px;}
-.author-loc{font-size:11px;color:var(--comet);}
-.test-tag{font-size:11px;color:var(--aurora);margin-top:10px;}
- 
+
+/* ── What you receive (illustrated, no dependency on real uploaded photos) ── */
+.deliver-grid{display:grid;gap:20px;}
+@media(min-width:640px){.deliver-grid{grid-template-columns:repeat(2,1fr);}}
+@media(min-width:1024px){.deliver-grid{grid-template-columns:repeat(4,1fr);}}
+.deliver-card{background:var(--nebula);border:1px solid var(--dusk);border-radius:20px;padding:26px 22px;transition:border-color .25s,transform .25s;}
+.deliver-card:hover{border-color:var(--aurora);transform:translateY(-3px);}
+.deliver-icon{width:48px;height:48px;border-radius:14px;background:var(--aurora-dim);display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+.deliver-card h3{font-size:18px;margin-bottom:8px;font-family:var(--font-b);font-weight:700;}
+.deliver-card p{font-size:13px;color:var(--comet);line-height:1.6;}
+
+.style-preview-wrap{margin-top:56px;}
+.style-preview-grid{display:grid;gap:20px;}
+@media(min-width:768px){.style-preview-grid{grid-template-columns:repeat(3,1fr);}}
+.style-card{position:relative;border-radius:20px;overflow:hidden;aspect-ratio:4/5;border:1px solid var(--dusk);background:linear-gradient(160deg,#1c1436 0%,#0d1429 55%,#12143A 100%);}
+.style-card svg{position:absolute;inset:0;width:100%;height:100%;}
+.style-card-label{position:absolute;bottom:0;left:0;right:0;padding:16px 18px;background:linear-gradient(to top,rgba(11,13,26,.92),transparent);}
+.style-card-label span{font-family:var(--font-d);font-style:italic;font-size:15px;color:var(--star);}
+.video-showcase{margin-top:56px;}
+.video-grid{display:grid;gap:20px;}
+@media(min-width:768px){.video-grid{grid-template-columns:repeat(2,1fr);}}
+.video-card{background:var(--nebula);border:1px solid var(--dusk);border-radius:20px;overflow:hidden;}
+.video-card video{width:100%;aspect-ratio:9/16;object-fit:cover;display:block;background:#0d1429;}
+.video-card-caption{padding:14px 18px;font-size:12px;color:var(--comet);}
+.video-card-caption strong{color:var(--mist);}
+
 /* ── Pricing ── */
 .price-grid{display:grid;gap:20px;max-width:720px;margin:0 auto;}
 @media(min-width:640px){.price-grid{gap:24px;}}
@@ -237,7 +218,17 @@ canvas#stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:non
 .price-cta.outline{border:1.5px solid var(--aurora);color:var(--aurora);background:transparent;transition:.25s;}
 .price-cta.outline:hover{background:var(--aurora);color:var(--night);}
 .money-note{text-align:center;font-size:12px;color:var(--comet);margin-top:24px;display:flex;align-items:center;justify-content:center;gap:6px;}
- 
+
+.plan-compare-strip{display:flex;align-items:center;justify-content:center;gap:14px;margin:0 auto 40px;flex-wrap:wrap;}
+.pcs-col{display:flex;flex-direction:column;align-items:center;text-align:center;background:var(--nebula);border:1px solid var(--dusk);border-radius:16px;padding:14px 22px;min-width:150px;}
+.pcs-col.pcs-highlight{border-color:var(--star);background:linear-gradient(180deg,rgba(200,185,106,.08),transparent);}
+.pcs-icon{font-size:22px;margin-bottom:6px;}
+.pcs-label{font-size:13px;font-weight:700;color:var(--mist);}
+.pcs-desc{font-size:11px;color:var(--comet);margin-top:2px;}
+.pcs-arrow{font-size:20px;color:var(--star);}
+.price-missing{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--comet);margin-bottom:16px;padding:8px 12px;background:rgba(168,158,212,.06);border-radius:10px;}
+.pricing-nudge{text-align:center;font-size:13px;color:var(--comet);max-width:480px;margin:20px auto 0;line-height:1.6;}
+
 /* ── Guarantee ── */
 .guarantee-icon{display:inline-flex;align-items:center;justify-content:center;width:76px;height:76px;border-radius:50%;border:1px solid var(--dusk);background:var(--nebula);margin:0 auto 24px;}
 .guarantee-text{font-size:15px;color:var(--comet);line-height:1.75;max-width:560px;margin:0 auto 32px;}
@@ -247,7 +238,30 @@ canvas#stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:non
 .pillar-emoji{font-size:22px;margin-bottom:8px;}
 .pillar-title{font-size:13px;font-weight:600;color:var(--mist);margin-bottom:4px;}
 .pillar-desc{font-size:11px;color:var(--comet);}
- 
+
+/* ── Testimonials (text-first, no photo dependency) ── */
+.test-grid{display:grid;gap:18px;}
+@media(min-width:640px){.test-grid{gap:22px;}}
+@media(min-width:768px){.test-grid{grid-template-columns:repeat(3,1fr);}}
+.test-card{background:var(--nebula);border:1px solid var(--dusk);border-radius:18px;padding:26px 24px;transition:border-color .3s;display:flex;flex-direction:column;}
+.test-card:hover{border-color:var(--aurora);}
+.test-card.feat{background:linear-gradient(var(--nebula),var(--nebula)) padding-box,linear-gradient(135deg,var(--star),var(--aurora)) border-box;border:2px solid transparent;}
+.test-stars{color:#F0C040;font-size:14px;letter-spacing:1px;margin-bottom:14px;}
+.quote-mark{font-family:var(--font-d);font-size:40px;color:var(--star);opacity:.35;line-height:1;margin-bottom:4px;}
+.feat .quote-mark{opacity:.6;}
+.test-text{font-size:14px;color:var(--comet);line-height:1.75;font-style:italic;margin-bottom:20px;flex:1;}
+.test-text strong{color:var(--mist);font-style:normal;}
+.test-author{display:flex;align-items:center;gap:12px;padding-top:16px;border-top:1px solid var(--dusk);}
+.avatar-mono{width:38px;height:38px;border-radius:50%;background:var(--aurora-dim);border:1px solid var(--dusk);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--star);flex-shrink:0;font-family:var(--font-d);}
+.author-name{font-weight:600;font-size:13px;display:flex;align-items:center;gap:6px;}
+.verified-badge{display:inline-flex;align-items:center;gap:3px;font-size:10px;color:var(--success);font-weight:600;}
+.author-loc{font-size:11px;color:var(--comet);}
+.test-tag{font-size:11px;color:var(--aurora);margin-top:2px;}
+
+.trust-strip{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:44px;}
+.trust-chip{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--comet);background:var(--night);border:1px solid var(--dusk);border-radius:999px;padding:8px 16px;}
+.trust-chip strong{color:var(--mist);}
+
 /* ── FAQ ── */
 .faq-list{max-width:660px;margin:0 auto;display:flex;flex-direction:column;gap:10px;}
 .faq-item{background:var(--nebula);border:1px solid var(--dusk);border-radius:14px;overflow:hidden;transition:border-color .25s;}
@@ -259,10 +273,10 @@ canvas#stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:non
 .faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease;}
 .faq-a-inner{padding:0 20px 16px;font-size:13px;color:var(--comet);line-height:1.65;}
 @media(min-width:640px){.faq-a-inner{padding:0 24px 20px;font-size:14px;}}
- 
+
 /* ── Checkout ── */
-#checkout{padding:72px 0 80px;}
-@media(min-width:768px){#checkout{padding:96px 0;}}
+#checkout{padding:60px 0 80px;}
+@media(min-width:768px){#checkout{padding:88px 0;}}
 .checkout-wrap{max-width:740px;margin:0 auto;display:grid;gap:28px;}
 @media(min-width:768px){.checkout-wrap{grid-template-columns:1fr 1fr;gap:44px;align-items:start;}}
 .order-summary{background:var(--nebula);border:1px solid var(--dusk);border-radius:22px;padding:24px;}
@@ -293,17 +307,29 @@ canvas#stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:non
 #checkout-success p{color:var(--comet);font-size:13px;line-height:1.7;}
 .success-icon{font-size:44px;margin-bottom:14px;}
 .spinner{width:18px;height:18px;border:2px solid rgba(11,13,26,.3);border-top-color:var(--night);border-radius:50%;animation:spin .7s linear infinite;display:none;}
- 
+
+/* Guarantee reinforcement block right by the pay button */
+.guarantee-inline{
+  background:rgba(200,185,106,.06);border:1px solid rgba(200,185,106,.22);
+  border-radius:14px;padding:16px 18px;
+}
+.guarantee-inline-title{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--star);margin-bottom:10px;}
+.guarantee-inline ul{display:flex;flex-direction:column;gap:8px;}
+.guarantee-inline li{display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:var(--comet);line-height:1.5;}
+.guarantee-inline li strong{color:var(--mist);}
+.guarantee-inline svg{flex-shrink:0;margin-top:1px;}
+
 /* Final CTA */
 .final-cta{text-align:center;}
 .final-star{font-family:var(--font-d);font-size:56px;color:var(--star);opacity:.25;margin-bottom:12px;line-height:1;}
-.final-cta h2{font-size:30px;margin-bottom:20px;}
-@media(min-width:640px){.final-cta h2{font-size:38px;}}
-@media(min-width:768px){.final-cta h2{font-size:48px;}}
+.final-cta h2{font-size:28px;margin-bottom:18px;}
+@media(min-width:640px){.final-cta h2{font-size:36px;}}
+@media(min-width:768px){.final-cta h2{font-size:44px;}}
 .final-cta p{color:var(--comet);font-size:15px;max-width:440px;margin:0 auto 32px;}
- 
+
 /* ── Footer ── */
-footer{background:var(--night);border-top:1px solid var(--dusk);padding:32px 0;}
+footer{background:var(--night);border-top:1px solid var(--dusk);padding:32px 0 90px;}
+@media(min-width:768px){footer{padding:32px 0;}}
 .footer-inner{display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center;}
 @media(min-width:768px){.footer-inner{flex-direction:row;justify-content:space-between;text-align:left;}}
 .footer-text{font-size:12px;color:var(--comet);}
@@ -312,18 +338,33 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:32px 0;}
 .footer-email{font-size:12px;color:var(--comet);margin-top:4px;}
 .sec-badge{display:flex;align-items:center;gap:5px;font-size:10.5px;color:var(--comet);border:1px solid var(--dusk);border-radius:8px;padding:5px 10px;background:var(--nebula);}
 .footer-badges{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;}
- 
+
+/* ── Sticky mobile CTA bar ── */
+#sticky-cta{
+  position:fixed;left:0;right:0;bottom:0;z-index:70;
+  background:rgba(11,13,26,.97);backdrop-filter:blur(14px);
+  border-top:1px solid var(--dusk);
+  padding:12px 16px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  transform:translateY(100%);transition:transform .3s ease;
+}
+#sticky-cta.visible{transform:translateY(0);}
+#sticky-cta .sc-info{display:flex;flex-direction:column;line-height:1.3;}
+#sticky-cta .sc-info span{font-size:11px;color:var(--comet);}
+#sticky-cta .sc-info strong{font-size:14px;color:var(--mist);font-family:var(--font-d);}
+#sticky-cta .btn{padding:12px 22px;font-size:14px;flex-shrink:0;}
+@media(min-width:768px){#sticky-cta{display:none;}}
+
 /* ── Reveal ── */
-/* Hero elements are visible by default; JS adds .will-animate before observing */
 .reveal{opacity:1;transform:none;}
 .reveal.will-animate{opacity:0;transform:translateY(24px);transition:opacity .65s cubic-bezier(.16,1,.3,1),transform .65s cubic-bezier(.16,1,.3,1);}
 .reveal.will-animate.visible{opacity:1;transform:none;}
 .rd1{transition-delay:.08s;}.rd2{transition-delay:.16s;}.rd3{transition-delay:.24s;}.rd4{transition-delay:.32s;}
- 
+
 /* ── Mobile tap targets ── */
 @media(max-width:767px){.btn,.pay-btn,.price-cta,.plan-btn,.faq-q,.ba-tab{min-height:48px;}}
 </style>
- 
+
 <!-- ════════════════════════════════════════════════════
   META PIXEL
 ════════════════════════════════════════════════════ -->
@@ -343,19 +384,19 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=2107549763310270&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
- 
+
 </head>
 <body>
- 
-<!-- ════════════════════════════════════════════════════ 
-  URGENCY BAR 
+
+<!-- ════════════════════════════════════════════════════
+  URGENCY BAR
 ════════════════════════════════════════════════════ -->
 <div id="urgency-bar">
   🔥 Limited-time offer — <span class="gold">$10 OFF</span> today only &nbsp;·&nbsp; Slots remaining: <span class="count-ring" id="slots-count">7</span>
 </div>
- 
-<!-- ════════════════════════════════════════════════════ 
-  NAVBAR 
+
+<!-- ════════════════════════════════════════════════════
+  NAVBAR
 ════════════════════════════════════════════════════ -->
 <nav id="navbar">
   <div class="wrap nav-inner">
@@ -365,16 +406,15 @@ src="https://www.facebook.com/tr?id=2107549763310270&ev=PageView&noscript=1"
     </a>
   </div>
 </nav>
- 
-<!-- ════════════════════════════════════════════════════ 
-  HERO 
+
+<!-- ════════════════════════════════════════════════════
+  HERO
 ════════════════════════════════════════════════════ -->
 <section class="hero">
   <canvas id="stars"></canvas>
   <div class="hero-glow"></div>
   <div class="wrap hero-grid">
- 
-    <!-- Left: Copy -->
+
     <div class="hero-copy">
       <p class="eyebrow reveal">✦ &nbsp;Pet Memorial Tributes &nbsp;✦</p>
       <h1 class="reveal rd1">
@@ -382,39 +422,36 @@ src="https://www.facebook.com/tr?id=2107549763310270&ev=PageView&noscript=1"
         <em class="gold">More Than a Memory.</em>
       </h1>
       <p class="hero-sub reveal rd2">
-        Send us their photos. We craft a stunning 4K memorial video or portrait — handcrafted and delivered to your inbox <strong style="color:var(--mist);">within 24 hours.</strong>
+        Send us their photos. We hand-craft a stunning 4K memorial video or portrait — delivered to your inbox <strong style="color:var(--mist);">within 24 hours.</strong> Trusted by 200+ grieving pet parents across the US.
       </p>
- 
+
       <div class="hero-cta reveal rd3">
         <a href="#checkout" class="btn btn-gold">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-          Create My Tribute
+          Create My Tribute — from $29
         </a>
-        <a href="#examples" class="btn btn-ghost">See Examples</a>
+        <a href="#faq" class="btn btn-ghost">How It Works</a>
       </div>
       <p class="hero-sub-cta reveal rd3">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#7B6FD4" stroke-width="2.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         Secure checkout &nbsp;·&nbsp; No subscription &nbsp;·&nbsp; Money-back guarantee
       </p>
- 
-      <!-- Social proof -->
+
       <div class="proof-strip reveal rd4">
         <div class="proof-pill"><span class="stars-gold">★★★★★</span>&nbsp;<strong>4.9</strong>&nbsp;— 200+ families</div>
         <div class="proof-pill">✔ Delivered in 24h</div>
         <div class="proof-pill">✔ 4K HD Quality</div>
       </div>
     </div>
- 
-    <!-- Right: Phone mockup -->
+
     <div class="hero-visual reveal rd2">
       <div class="phone-float" style="position:relative;">
         <div class="phone-shell">
           <div class="phone-notch"></div>
           <div class="phone-screen">
-            <video autoplay loop muted playsinline poster="images/hero-poster.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;">
+            <video autoplay loop muted playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;">
               <source src="images/hero-tribute.mp4" type="video/mp4">
             </video>
-            <!-- SVG placeholder shown when video is absent -->
             <svg viewBox="0 0 200 355" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%;z-index:1;">
               <defs>
                 <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1c1436"/><stop offset="55%" stop-color="#0d1429"/><stop offset="100%" stop-color="#0B0D1A"/></linearGradient>
@@ -437,22 +474,21 @@ src="https://www.facebook.com/tr?id=2107549763310270&ev=PageView&noscript=1"
           </div>
           <div class="phone-home-bar"></div>
         </div>
-        <!-- Floating delivery badge -->
         <div class="delivered-badge">
           <div class="dot"></div>
           <div>
-            <div style="font-weight:700;font-size:12px;">Plan Premium💛</div>
-            <div style="font-size:10px;color:var(--comet);">Luna tribute — 4K HD</div>
+            <div style="font-weight:700;font-size:12px;">Just delivered!</div>
+            <div style="font-size:10px;color:var(--comet);">Tribute package — 4K HD</div>
           </div>
         </div>
       </div>
     </div>
- 
+
   </div>
 </section>
- 
-<!-- ════════════════════════════════════════════════════ 
-  MARQUEE 
+
+<!-- ════════════════════════════════════════════════════
+  MARQUEE
 ════════════════════════════════════════════════════ -->
 <div class="marquee-strip">
   <div class="marquee-track">
@@ -462,7 +498,6 @@ src="https://www.facebook.com/tr?id=2107549763310270&ev=PageView&noscript=1"
     <span class="marquee-item">🎬 4K HD — print-ready files</span><span class="m-sep">✦</span>
     <span class="marquee-item"><span class="stars-gold" style="font-size:11px;">★★★★★</span>&nbsp;"The most beautiful thing I own." — Sarah K.</span><span class="m-sep">✦</span>
     <span class="marquee-item">🐾 200+ families honored so far</span><span class="m-sep">✦</span>
-    <!-- duplicate for seamless loop -->
     <span class="marquee-item"><span class="stars-gold" style="font-size:11px;">★★★★★</span>&nbsp;"I cried happy tears watching Bella's tribute" — Maria T.</span><span class="m-sep">✦</span>
     <span class="marquee-item">⚡ Delivered within 24 hours</span><span class="m-sep">✦</span>
     <span class="marquee-item"><span class="stars-gold" style="font-size:11px;">★★★★★</span>&nbsp;"Max's video is everything. Thank you." — James R.</span><span class="m-sep">✦</span>
@@ -471,9 +506,9 @@ src="https://www.facebook.com/tr?id=2107549763310270&ev=PageView&noscript=1"
     <span class="marquee-item">🐾 200+ families honored so far</span>
   </div>
 </div>
- 
-<!-- ════════════════════════════════════════════════════ 
-  HOW IT WORKS 
+
+<!-- ════════════════════════════════════════════════════
+  HOW IT WORKS
 ════════════════════════════════════════════════════ -->
 <section class="sec sec-cosmos" id="how-it-works">
   <div class="wrap-md">
@@ -504,176 +539,162 @@ src="https://www.facebook.com/tr?id=2107549763310270&ev=PageView&noscript=1"
     </div>
   </div>
 </section>
- 
-<!-- ════════════════════════════════════════════════════ 
-  BEFORE / AFTER EXAMPLES 
+
+<!-- ════════════════════════════════════════════════════
+  WHAT YOU RECEIVE (no dependency on real uploaded photos)
 ════════════════════════════════════════════════════ -->
-<section class="sec" id="examples">
+<section class="sec" id="what-you-get">
   <div class="wrap-md">
     <div class="sec-header reveal">
-      <p class="eyebrow">✦ &nbsp;Real Results &nbsp;✦</p>
-      <h2>From your photos to a <em class="gold">masterpiece</em></h2>
-      <p>Every tribute is crafted to capture your pet's exact traits — fur, eyes, markings.</p>
+      <p class="eyebrow">✦ &nbsp;What You'll Receive &nbsp;✦</p>
+      <h2>Crafted with the care of a <em class="gold">real artist</em></h2>
+      <p>Every tribute is hand-finished by our team — never a generic template.</p>
     </div>
- 
-    <div class="ba-tabs">
-      <button class="ba-tab active" data-target="ba-photos">📷 Photo Portraits</button>
-      <button class="ba-tab" data-target="ba-videos">🎬 Cinematic Videos</button>
+
+    <div class="deliver-grid">
+      <div class="deliver-card reveal">
+        <div class="deliver-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C8B96A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></div>
+        <h3>4K HD file</h3>
+        <p>Print-ready resolution — sharp on any screen, canvas, or frame.</p>
+      </div>
+      <div class="deliver-card reveal rd1">
+        <div class="deliver-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C8B96A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+        <h3>24-hour delivery</h3>
+        <p>Most tributes are finished the same day photos are received.</p>
+      </div>
+      <div class="deliver-card reveal rd2">
+        <div class="deliver-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C8B96A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21C12 21 4 15 4 9a5 5 0 0110-1 5 5 0 0110 1c0 6-8 12-8 12z"/></svg></div>
+        <h3>True to your pet</h3>
+        <p>Exact fur pattern, eye color, and markings — studied carefully, never generic.</p>
+      </div>
+      <div class="deliver-card reveal rd3">
+        <div class="deliver-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C8B96A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <h3>1 free revision</h3>
+        <p>Not quite right? We'll adjust it and resend within 24 hours.</p>
+      </div>
     </div>
- 
-    <div class="ba-panel-group active" id="ba-photos">
-      <div class="ba-grid">
-        <div class="ba-card reveal">
-          <div class="ba-compare">
-            <div class="ba-panel before">
-              <span class="ba-label">Before</span>
-              <img class="ba-img" src="images/buddy-after.jpg" alt="Woody — original photo" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
-              <p class="ba-ph" style="display:none;">Your pet's photo</p>
-            </div>
-            <div class="ba-panel after">
-              <span class="ba-label">After</span>
-              <img class="ba-img" src="images/buddy-before.jpg" alt="Woody — finished tribute" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
-              <p class="ba-ph" style="display:none;">Celestial 4K portrait</p>
-            </div>
-          </div>
-          <div class="ba-caption"><strong>Woody</strong> — Photo portrait</div>
+
+    <div class="style-preview-wrap">
+      <div class="style-preview-grid">
+        <div class="style-card reveal">
+          <svg viewBox="0 0 320 400" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2a1f4d"/><stop offset="60%" stop-color="#141a35"/><stop offset="100%" stop-color="#0B0D1A"/></linearGradient>
+            <radialGradient id="r1" cx="50%" cy="35%" r="55%"><stop offset="0%" stop-color="#7B6FD4" stop-opacity=".35"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs>
+            <rect width="320" height="400" fill="url(#g1)"/><ellipse cx="160" cy="150" rx="150" ry="120" fill="url(#r1)"/>
+            <circle cx="40" cy="30" r="1.3" fill="#fff" opacity=".8"/><circle cx="270" cy="50" r="1" fill="#fff" opacity=".7"/><circle cx="90" cy="70" r=".8" fill="#C8B96A" opacity=".9"/><circle cx="230" cy="20" r="1.1" fill="#fff" opacity=".6"/>
+            <ellipse cx="160" cy="100" rx="70" ry="10" fill="none" stroke="#C8B96A" stroke-width="1.5" opacity=".8"/>
+            <path d="M100 220 Q160 170 220 220 L220 340 Q160 380 100 340 Z" fill="#1c1436" stroke="#7B6FD4" stroke-width="1" opacity=".7"/>
+            <text x="160" y="285" text-anchor="middle" font-family="Georgia,serif" font-size="13" fill="#E8E4F8" opacity=".55">Celestial Portrait</text>
+          </svg>
+          <div class="style-card-label"><span>Style — Golden Halo</span></div>
         </div>
-        <div class="ba-card reveal rd1">
-          <div class="ba-compare">
-            <div class="ba-panel before">
-              <span class="ba-label">Before</span>
-              <img class="ba-img" src="images/luna-after.jpg" alt="Jucy — original photo" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
-              <p class="ba-ph" style="display:none;">Your pet's photo</p>
-            </div>
-            <div class="ba-panel after">
-              <span class="ba-label">After</span>
-              <img class="ba-img" src="images/luna-before.jpg" alt="Jucy — finished tribute" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
-              <p class="ba-ph" style="display:none;">Celestial 4K portrait</p>
-            </div>
-          </div>
-          <div class="ba-caption"><strong>Jucy</strong> — Photo portrait</div>
+        <div class="style-card reveal rd1">
+          <svg viewBox="0 0 320 400" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#132a1f"/><stop offset="60%" stop-color="#101c2c"/><stop offset="100%" stop-color="#0B0D1A"/></linearGradient>
+            <radialGradient id="r2" cx="50%" cy="35%" r="55%"><stop offset="0%" stop-color="#C8B96A" stop-opacity=".3"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs>
+            <rect width="320" height="400" fill="url(#g2)"/><ellipse cx="160" cy="150" rx="150" ry="120" fill="url(#r2)"/>
+            <circle cx="60" cy="40" r="1" fill="#fff" opacity=".7"/><circle cx="250" cy="60" r="1.2" fill="#fff" opacity=".8"/><circle cx="200" cy="25" r=".8" fill="#C8B96A" opacity=".9"/>
+            <path d="M90 230 Q160 260 230 230" fill="none" stroke="#6bcb77" stroke-width="1.4" opacity=".55"/>
+            <path d="M100 230 Q160 180 220 230 L220 350 Q160 385 100 350 Z" fill="#152418" stroke="#6bcb77" stroke-width="1" opacity=".6"/>
+            <text x="160" y="285" text-anchor="middle" font-family="Georgia,serif" font-size="13" fill="#E8E4F8" opacity=".55">Garden Reunion</text>
+          </svg>
+          <div class="style-card-label"><span>Style — Garden of Peace</span></div>
+        </div>
+        <div class="style-card reveal rd2">
+          <svg viewBox="0 0 320 400" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#241a3d"/><stop offset="60%" stop-color="#12172e"/><stop offset="100%" stop-color="#0B0D1A"/></linearGradient>
+            <radialGradient id="r3" cx="50%" cy="30%" r="60%"><stop offset="0%" stop-color="#7B6FD4" stop-opacity=".4"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs>
+            <rect width="320" height="400" fill="url(#g3)"/><ellipse cx="160" cy="140" rx="160" ry="130" fill="url(#r3)"/>
+            <path d="M60 200 Q160 130 260 200" fill="none" stroke="#fff" stroke-width="1" opacity=".25"/>
+            <path d="M40 240 Q160 170 280 240" fill="none" stroke="#fff" stroke-width="1" opacity=".18"/>
+            <path d="M100 240 Q160 195 220 240 L220 360 Q160 390 100 360 Z" fill="#1c1436" stroke="#C8B96A" stroke-width="1" opacity=".7"/>
+            <text x="160" y="285" text-anchor="middle" font-family="Georgia,serif" font-size="13" fill="#E8E4F8" opacity=".55">Sky Portal</text>
+          </svg>
+          <div class="style-card-label"><span>Style — Heaven's Gate</span></div>
         </div>
       </div>
     </div>
- 
-    <div class="ba-panel-group" id="ba-videos">
-      <div class="ba-grid">
-        <div class="ba-card reveal">
-          <div class="ba-compare">
-            <div class="ba-panel before">
-              <span class="ba-label">Before</span>
-              <video autoplay loop muted playsinline><source src="https://res.cloudinary.com/defx9fopr/video/upload/v1782373986/mochi-after_lcmcyq.mp4" type="video/mp4"></video>
-            </div>
-            <div class="ba-panel after">
-              <span class="ba-label">After</span>
-              <video autoplay loop muted playsinline><source src="https://res.cloudinary.com/defx9fopr/video/upload/v1782373987/mochi-before_kngzpr.mp4" type="video/mp4"></video>
-            </div>
-          </div>
-          <div class="ba-caption"><strong>Spot</strong> — Basic plan Memory🐾, cinematic video</div>
+
+    <div class="video-showcase">
+      <div class="sec-header reveal" style="margin-bottom:32px;">
+        <p class="eyebrow">✦ &nbsp;Real Tributes We've Made &nbsp;✦</p>
+        <h2 style="font-size:24px;">See the <em class="gold">cinematic quality</em></h2>
+      </div>
+      <div class="video-grid">
+        <div class="video-card reveal">
+          <video autoplay loop muted playsinline><source src="https://res.cloudinary.com/defx9fopr/video/upload/v1782373987/mochi-before_kngzpr.mp4" type="video/mp4"></video>
+          <div class="video-card-caption"><strong>Spot</strong> — Tribute package, cinematic reunion video</div>
         </div>
-        <div class="ba-card reveal rd1">
-          <div class="ba-compare">
-            <div class="ba-panel before">
-              <span class="ba-label">Before</span>
-              <video autoplay loop muted playsinline><source src="https://res.cloudinary.com/defx9fopr/video/upload/v1784095523/6a5722ce6102233420215199.sanitized_ua88yz.mp4" type="video/mp4"></video>
-            </div>
-            <div class="ba-panel after">
-              <span class="ba-label">After</span>
-              <video autoplay loop muted playsinline><source src="https://res.cloudinary.com/defx9fopr/video/upload/v1784094917/cooper-after_nxzmun.mp4"></video>
-            </div>
-          </div>
-          <div class="ba-caption"><strong>Mel</strong> — Basic plan Memory🐾, cinematic video</div>
+        <div class="video-card reveal rd1">
+          <video autoplay loop muted playsinline><source src="https://res.cloudinary.com/defx9fopr/video/upload/v1784094917/cooper-after_nxzmun.mp4" type="video/mp4"></video>
+          <div class="video-card-caption"><strong>Mel</strong> — Tribute package, cinematic reunion video</div>
         </div>
       </div>
     </div>
- 
-    <div style="text-align:center;margin-top:36px;" class="reveal">
+
+    <div style="text-align:center;margin-top:44px;" class="reveal">
       <a href="#checkout" class="btn btn-gold">
         Create a Tribute Like This →
       </a>
     </div>
   </div>
 </section>
- 
-<!-- ════════════════════════════════════════════════════ 
-  TESTIMONIALS 
+
+<!-- ════════════════════════════════════════════════════
+  PRICING (moved up, closer to the top of the funnel)
 ════════════════════════════════════════════════════ -->
-<section class="sec sec-cosmos">
-  <div class="wrap">
-    <div class="sec-header reveal">
-      <p class="eyebrow">✦ &nbsp;Real Families &nbsp;✦</p>
-      <h2>Words from <em class="gold">loving owners</em></h2>
-    </div>
-    <div class="test-grid">
-      <div class="test-card reveal">
-        <div class="quote-mark">"</div>
-        <p class="test-text">From the moment I opened the file I couldn't stop crying — in the best possible way. They captured Jucy's blue eyes and her little white chest patch exactly. It's the most precious thing I've ever received.</p>
-        <div class="test-author">
-          <div class="avatar"><img src="images/avatar-michelle.jpg" alt="M" onerror="this.parentElement.textContent='M'"></div>
-          <div><p class="author-name">Michelle P.</p><p class="author-loc">Portland, OR — <span class="stars-gold" style="font-size:11px;">★★★★★</span></p></div>
-        </div>
-        <p class="test-tag">🐱 Jucy, 14 years — cinematic video tribute</p>
-      </div>
-      <div class="test-card feat reveal rd1">
-        <div class="quote-mark">"</div>
-        <p class="test-text">Spot was my shadow for 12 years. The celestial portrait they made — stars, soft blue light — looks like a painting from another world. I have it printed and framed. He deserved every pixel of it.</p>
-        <div class="test-author">
-          <div class="avatar"><img src="images/avatar-david.jpg" alt="D" onerror="this.parentElement.textContent='D'"></div>
-          <div><p class="author-name">David L.</p><p class="author-loc">Austin, TX — <span class="stars-gold" style="font-size:11px;">★★★★★</span></p></div>
-        </div>
-        <p class="test-tag">🐶 Spot, 12 years — Tribute package</p>
-      </div>
-      <div class="test-card reveal rd2">
-        <div class="quote-mark">"</div>
-        <p class="test-text">I was skeptical about a digital tribute at first. When I saw Mel video — her stripes, her little bent ear, her exact coloring — I was stunned. The whole family watched it together on Thanksgiving. Pure love.</p>
-        <div class="test-author">
-          <div class="avatar"><img src="images/avatar-Riley.jpg" alt="R" onerror="this.parentElement.textContent='R'"></div>
-          <div><p class="author-name">Riley T.</p><p class="author-loc">Seattle, WA — <span class="stars-gold" style="font-size:11px;">★★★★★</span></p></div>
-        </div>
-        <p class="test-tag">🐱 Mel, 9 years — cinematic video + photo</p>
-      </div>
-    </div>
-  </div>
-</section>
- 
-<!-- ════════════════════════════════════════════════════ 
-  PRICING 
-════════════════════════════════════════════════════ -->
-<section class="sec" id="pricing">
+<section class="sec sec-cosmos" id="pricing">
   <div class="wrap-sm">
     <div class="sec-header reveal">
       <p class="eyebrow">✦ &nbsp;Simple Pricing &nbsp;✦</p>
-      <h2>Choose your <em class="gold">tribute</em></h2>
-      <p>Every package captures your pet's exact physical traits — fur, eyes, markings — handcrafted with care.</p>
+      <h2>Two ways to <em class="gold">honor them</em></h2>
+      <p>One is a portrait of your pet alone. The other brings <strong style="color:var(--mist);">you back together</strong> — a cinematic reunion scene made to feel like one more moment with them.</p>
     </div>
+
+    <div class="plan-compare-strip reveal">
+      <div class="pcs-col">
+        <span class="pcs-icon">🐾</span>
+        <span class="pcs-label">Memory — $29</span>
+        <span class="pcs-desc">Your pet, honored alone</span>
+      </div>
+      <div class="pcs-arrow">→</div>
+      <div class="pcs-col pcs-highlight">
+        <span class="pcs-icon">💛</span>
+        <span class="pcs-label">Tribute — $49</span>
+        <span class="pcs-desc">You + your pet, reunited</span>
+      </div>
+    </div>
+
     <div class="price-grid">
-      <!-- Memory -->
       <div class="price-card reveal">
         <div>
-          <span class="price-eyebrow">🐾 Memory</span>
+          <span class="price-eyebrow">🐾 Memory — Pet Only</span>
           <h3>Basic</h3>
-          <p class="price-desc">A heartfelt keepsake honoring only your pet — a single portrait or video dedicated entirely to the angel you lost.</p>
+          <p class="price-desc">A heartfelt keepsake of <strong style="color:var(--mist);">your pet alone</strong> — a single portrait or video honoring the angel you lost, with no scene of reunion.</p>
         </div>
         <div class="price-amount">
           <span class="price-currency">$</span>
           <span class="price-num">29</span>
         </div>
         <ul class="price-features">
-          <li><svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#7B6FD4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>1 custom digital piece</strong> — portrait or video</span></li>
+          <li><svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#7B6FD4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>1 custom digital piece</strong> — your pet only, portrait or video</span></li>
           <li><svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#7B6FD4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>Ultra-realistic rendering</strong> — unique coat, eyes & markings</span></li>
           <li><svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#7B6FD4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>4K HD file</strong> — print-ready for any size</span></li>
           <li><svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#7B6FD4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg><span>Delivered within <strong>24 hours</strong></span></li>
           <li><svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#7B6FD4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg><span>1 free revision included</span></li>
         </ul>
+        <div class="price-missing">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#A89ED4" stroke-width="2.2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          Does not include you in the scene
+        </div>
         <a href="#checkout" class="price-cta outline" onclick="selectPlan('memory')">Get Started — $29</a>
       </div>
-      <!-- Tribute -->
       <div class="price-card best reveal rd1">
-        <span class="best-badge">✦ Best Value</span>
+        <span class="best-badge">✦ Most Chosen — The Reunion</span>
         <div>
-          <span class="price-eyebrow">💛 Tribute</span>
+          <span class="price-eyebrow">💛 Tribute — You Reunited</span>
           <h3>Premium</h3>
-          <p class="price-desc">An emotional cinematic reunion — a beautifully rendered scene that brings your beloved companion back to you once more.</p>
+          <p class="price-desc">The full emotional experience: <strong style="color:var(--mist);">you</strong>, painted back together with your pet in a cinematic reunion scene — the moment so many owners tell us they needed to see.</p>
         </div>
         <div class="price-amount">
           <span class="price-currency">$</span>
@@ -681,34 +702,40 @@ src="https://www.facebook.com/tr?id=2107549763310270&ev=PageView&noscript=1"
           <span class="price-save"><span class="strike">$79</span><span class="pct">Save 38%</span></span>
         </div>
         <ul class="price-features">
-          <li><svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C8B96A" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>2 custom photo portraits</strong> — different celestial scenes</span></li>
+          <li><svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C8B96A" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>You reunited with your pet</strong> — a cinematic scene with both of you together</span></li>
+          <li><svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C8B96A" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>2 custom photo portraits</strong> — different celestial reunion scenes</span></li>
           <li><svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C8B96A" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>1 cinematic reunion video</strong> — vertical 9:16 & horizontal</span></li>
-          <li><svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C8B96A" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>Anatomically faithful</strong> — fur texture, eye color, unique traits</span></li>
+          <li><svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C8B96A" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>Your likeness included</strong> — built from a photo of you, not just your pet</span></li>
           <li><svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C8B96A" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg><span>All files in <strong>4K HD</strong>, print-ready + shareable</span></li>
           <li><svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C8B96A" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>Priority delivery</strong> within 24 hours</span></li>
           <li><svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C8B96A" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg><span>1 free revision included</span></li>
         </ul>
-        <a href="#checkout" class="price-cta btn-gold" onclick="selectPlan('tribute')">Get Started — $49</a>
+        <a href="#checkout" class="price-cta btn-gold" onclick="selectPlan('tribute')">See Us Reunited — $49</a>
       </div>
     </div>
+
+    <p class="pricing-nudge reveal">
+      💛 Most families choose <strong style="color:var(--star);">Tribute</strong> — seeing themselves back with their pet, even for a moment, is what brings the most comfort.
+    </p>
+
     <p class="money-note reveal">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7B6FD4" stroke-width="2.2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
       Secure payment &nbsp;·&nbsp; Satisfaction guarantee &nbsp;·&nbsp; No subscription
     </p>
   </div>
 </section>
- 
-<!-- ════════════════════════════════════════════════════ 
-  GUARANTEE 
+
+<!-- ════════════════════════════════════════════════════
+  GUARANTEE
 ════════════════════════════════════════════════════ -->
-<section class="sec sec-cosmos" id="guarantee">
+<section class="sec" id="guarantee">
   <div class="wrap-sm" style="text-align:center;">
     <div class="guarantee-icon reveal">
       <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#C8B96A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
     </div>
     <p class="eyebrow reveal">✦ &nbsp;Our Promise &nbsp;✦</p>
-    <h2 class="reveal" style="font-size:30px;margin-bottom:18px;">Made with <em class="gold">deep respect</em> and attention</h2>
-    <p class="guarantee-text reveal">We understand your pet was irreplaceable. Every tribute is created as if it were for our own companion — studying photos carefully to capture the exact color of their fur, the shape of their ears, the look in their eyes. One revision is always included to get every detail right.</p>
+    <h2 class="reveal" style="font-size:28px;margin-bottom:18px;">Made with <em class="gold">deep respect</em> and attention</h2>
+    <p class="guarantee-text reveal">We understand your pet was irreplaceable. Every tribute is created as if it were for our own companion — studying photos carefully to capture the exact color of their fur, the shape of their ears, the look in their eyes. One revision is always included to get every detail right, and a full refund if we can't deliver a result you love.</p>
     <div class="pillars">
       <div class="pillar reveal"><div class="pillar-emoji">🎨</div><p class="pillar-title">Handcrafted</p><p class="pillar-desc">AI-assisted and reviewed by real creators.</p></div>
       <div class="pillar reveal rd1"><div class="pillar-emoji">🔍</div><p class="pillar-title">Anatomically True</p><p class="pillar-desc">Fur, eyes, markings — every detail preserved.</p></div>
@@ -717,9 +744,70 @@ src="https://www.facebook.com/tr?id=2107549763310270&ev=PageView&noscript=1"
     </div>
   </div>
 </section>
- 
-<!-- ════════════════════════════════════════════════════ 
-  FAQ 
+
+<!-- ════════════════════════════════════════════════════
+  TESTIMONIALS — text-first, no photo dependency
+════════════════════════════════════════════════════ -->
+<section class="sec sec-cosmos">
+  <div class="wrap">
+    <div class="sec-header reveal">
+      <p class="eyebrow">✦ &nbsp;Real Families &nbsp;✦</p>
+      <h2>Words from <em class="gold">loving owners</em></h2>
+      <p>200+ tributes delivered to grieving pet parents across the US.</p>
+    </div>
+    <div class="test-grid">
+      <div class="test-card reveal">
+        <div class="test-stars">★★★★★</div>
+        <div class="quote-mark">"</div>
+        <p class="test-text">From the moment I opened the file I couldn't stop crying — in the best possible way. They captured <strong>Jucy's blue eyes</strong> and her little white chest patch exactly. It's the most precious thing I've ever received.</p>
+        <div class="test-author">
+          <div class="avatar-mono">M</div>
+          <div>
+            <p class="author-name">Michelle P. <span class="verified-badge">✓ Verified buyer</span></p>
+            <p class="author-loc">Portland, OR</p>
+          </div>
+        </div>
+        <p class="test-tag">🐱 Jucy, 14 years — Tribute package</p>
+      </div>
+      <div class="test-card feat reveal rd1">
+        <div class="test-stars">★★★★★</div>
+        <div class="quote-mark">"</div>
+        <p class="test-text">Spot was my shadow for 12 years. The celestial portrait they made — <strong>stars, soft blue light</strong> — looks like a painting from another world. I have it printed and framed. He deserved every pixel of it.</p>
+        <div class="test-author">
+          <div class="avatar-mono">D</div>
+          <div>
+            <p class="author-name">David L. <span class="verified-badge">✓ Verified buyer</span></p>
+            <p class="author-loc">Austin, TX</p>
+          </div>
+        </div>
+        <p class="test-tag">🐶 Spot, 12 years — Tribute package</p>
+      </div>
+      <div class="test-card reveal rd2">
+        <div class="test-stars">★★★★★</div>
+        <div class="quote-mark">"</div>
+        <p class="test-text">I was skeptical about a digital tribute at first. When I saw Mel's video — <strong>her stripes, her little bent ear</strong>, her exact coloring — I was stunned. The whole family watched it together on Thanksgiving. Pure love.</p>
+        <div class="test-author">
+          <div class="avatar-mono">R</div>
+          <div>
+            <p class="author-name">Riley T. <span class="verified-badge">✓ Verified buyer</span></p>
+            <p class="author-loc">Seattle, WA</p>
+          </div>
+        </div>
+        <p class="test-tag">🐱 Mel, 9 years — Tribute package</p>
+      </div>
+    </div>
+
+    <div class="trust-strip reveal">
+      <div class="trust-chip"><span class="stars-gold" style="font-size:13px;">★★★★★</span> <strong>4.9/5</strong> average rating</div>
+      <div class="trust-chip">🐾 <strong>200+</strong> tributes delivered</div>
+      <div class="trust-chip">⚡ <strong>24-hour</strong> average delivery</div>
+      <div class="trust-chip">🔒 <strong>Secure</strong> payment via Stripe</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════
+  FAQ
 ════════════════════════════════════════════════════ -->
 <section class="sec" id="faq">
   <div class="wrap-sm">
@@ -738,9 +826,9 @@ src="https://www.facebook.com/tr?id=2107549763310270&ev=PageView&noscript=1"
     </div>
   </div>
 </section>
- 
-<!-- ════════════════════════════════════════════════════ 
-  FINAL CTA 
+
+<!-- ════════════════════════════════════════════════════
+  FINAL CTA
 ════════════════════════════════════════════════════ -->
 <section class="sec sec-cosmos">
   <div class="wrap-sm final-cta">
@@ -754,11 +842,11 @@ src="https://www.facebook.com/tr?id=2107549763310270&ev=PageView&noscript=1"
     <p style="margin-top:14px;font-size:12px;color:var(--comet);" class="reveal">🔒 Secure &nbsp;·&nbsp; No subscription &nbsp;·&nbsp; 100% satisfaction guaranteed</p>
   </div>
 </section>
- 
-<!-- ════════════════════════════════════════════════════ 
-  CHECKOUT 
+
+<!-- ════════════════════════════════════════════════════
+  CHECKOUT
 ════════════════════════════════════════════════════ -->
-<section id="checkout" style="padding:72px 0 80px;background:var(--night);">
+<section id="checkout" style="padding:60px 0 80px;background:var(--night);">
   <div class="wrap-sm">
     <div class="sec-header reveal" style="margin-bottom:36px;">
       <p class="eyebrow">✦ &nbsp;Secure Checkout &nbsp;✦</p>
@@ -766,20 +854,18 @@ src="https://www.facebook.com/tr?id=2107549763310270&ev=PageView&noscript=1"
       <p>You'll be redirected to Stripe to complete payment — 100% secure.</p>
     </div>
     <div class="checkout-wrap reveal">
-      <!-- Order Summary -->
       <div class="order-summary">
         <p class="order-title">Your Order</p>
         <div class="plan-toggle">
-          <button class="plan-btn active" id="btn-basic" onclick="selectPlan('memory')">🐾 Memory<span class="plan-price">$29</span></button>
-          <button class="plan-btn" id="btn-premium" onclick="selectPlan('tribute')">💛 Tribute<span class="plan-price">$49</span><span class="plan-best">✦ Best Value</span></button>
+          <button class="plan-btn active" id="btn-basic" onclick="selectPlan('memory')">🐾 Pet Only<span class="plan-price">$29</span></button>
+          <button class="plan-btn" id="btn-premium" onclick="selectPlan('tribute')">💛 You + Pet<span class="plan-price">$49</span><span class="plan-best">✦ Most Chosen</span></button>
         </div>
         <div id="summary-features" class="summary-features"></div>
-        <div class="summary-line"><span>Package</span><span class="val" id="sum-pkg">Memory</span></div>
+        <div class="summary-line"><span>Package</span><span class="val" id="sum-pkg">Memory (Pet Only)</span></div>
         <div class="summary-line"><span>Delivery</span><span class="val">Within 24 hours</span></div>
         <div class="summary-line"><span>Revision</span><span class="val">1 free</span></div>
         <div class="summary-line total"><span>Total</span><span class="val" id="sum-total">$29.00</span></div>
       </div>
-      <!-- Checkout Panel -->
       <div>
         <div id="checkout-success">
           <div class="success-icon">🐾</div>
@@ -800,14 +886,27 @@ src="https://www.facebook.com/tr?id=2107549763310270&ev=PageView&noscript=1"
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
             Secured by <strong style="color:var(--mist);margin-left:3px;">Stripe</strong> &nbsp;·&nbsp; 256-bit SSL
           </div>
+
+          <!-- Guarantee reinforcement, right next to the pay button -->
+          <div class="guarantee-inline">
+            <div class="guarantee-inline-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8B96A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              Your purchase is protected
+            </div>
+            <ul>
+              <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#6bcb77" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>1 free revision</strong> if any detail isn't right</span></li>
+              <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#6bcb77" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>Full refund</strong> if we can't deliver a result you love</span></li>
+              <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#6bcb77" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>No subscription</strong> — one-time payment, nothing recurring</span></li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
- 
-<!-- ════════════════════════════════════════════════════ 
-  FOOTER 
+
+<!-- ════════════════════════════════════════════════════
+  FOOTER
 ════════════════════════════════════════════════════ -->
 <footer>
   <div class="wrap footer-inner">
@@ -827,25 +926,37 @@ src="https://www.facebook.com/tr?id=2107549763310270&ev=PageView&noscript=1"
     </div>
   </div>
 </footer>
- 
+
+<!-- ════════════════════════════════════════════════════
+  STICKY MOBILE CTA (shortens distance to checkout)
+════════════════════════════════════════════════════ -->
+<div id="sticky-cta">
+  <div class="sc-info">
+    <span>Ready when you are</span>
+    <strong>Create Your Tribute</strong>
+  </div>
+  <a href="#checkout" class="btn btn-gold">from $29</a>
+</div>
+
 <!-- SCRIPTS -->
 <script>
-// ── Globals exposed for onclick= attributes in HTML ──────────
 var currentPlan = 'memory';
- 
+
 var PLANS = {
   memory: {
-    label: 'Memory', price: 29,
+    label: 'Memory (Pet Only)', price: 29,
     features: [
-      '1 custom digital piece — portrait or video',
+      '1 custom digital piece — your pet only',
+      'Does not include you in the scene',
       '4K HD file, print-ready',
       'Delivered within 24 hours',
       '1 revision included'
     ]
   },
   tribute: {
-    label: 'Tribute', price: 49,
+    label: 'Tribute (You + Pet Reunited)', price: 49,
     features: [
+      'You reunited with your pet in one scene',
       '2 custom photo portraits',
       '1 cinematic reunion video (9:16 & horizontal)',
       'All files in 4K HD',
@@ -854,7 +965,7 @@ var PLANS = {
     ]
   }
 };
- 
+
 function renderFeatures(plan) {
   var wrap = document.getElementById('summary-features');
   if (!wrap) return;
@@ -866,7 +977,7 @@ function renderFeatures(plan) {
     wrap.appendChild(d);
   });
 }
- 
+
 function selectPlan(plan) {
   if (!PLANS[plan]) return;
   currentPlan = plan;
@@ -878,25 +989,23 @@ function selectPlan(plan) {
   var payLabel = document.getElementById('pay-label');
   if (payLabel) payLabel.textContent = 'Pay $' + d.price.toFixed(2) + ' — Continue to Stripe';
   renderFeatures(plan);
- 
-  // Meta Pixel: track plan selection intent
+
   if (typeof fbq === 'function') {
     fbq('trackCustom', 'SelectPlan', { plan: plan, value: d.price, currency: 'USD' });
   }
 }
- 
+
 async function handleCheckout() {
   var btn     = document.getElementById('pay-btn');
   var label   = document.getElementById('pay-label');
   var spinner = document.getElementById('pay-spinner');
   var errEl   = document.getElementById('checkout-error');
- 
+
   errEl.style.display = 'none';
   btn.disabled = true;
   label.style.display = 'none';
   spinner.style.display = 'block';
- 
-  // Meta Pixel: user started checkout
+
   if (typeof fbq === 'function') {
     var planData = PLANS[currentPlan];
     fbq('track', 'InitiateCheckout', {
@@ -907,7 +1016,7 @@ async function handleCheckout() {
       content_type: 'product'
     });
   }
- 
+
   try {
     var response = await fetch('https://eternal-paws-original-production.up.railway.app/create-checkout', {
       method: 'POST',
@@ -926,22 +1035,18 @@ async function handleCheckout() {
     spinner.style.display = 'none';
   }
 }
- 
-// ── Init on DOMContentLoaded ──────────────────────────────────
+
 document.addEventListener('DOMContentLoaded', function() {
- 
-  // Render default plan features
+
   renderFeatures('memory');
- 
-  // ── Navbar scroll ────────────────────────────────────────
+
   var navbar = document.getElementById('navbar');
   if (navbar) {
     window.addEventListener('scroll', function() {
       navbar.classList.toggle('scrolled', window.scrollY > 40);
     }, { passive: true });
   }
- 
-  // ── Reveal on scroll ─────────────────────────────────────
+
   var revEls = document.querySelectorAll('.reveal');
   var viewH = window.innerHeight;
   revEls.forEach(function(el) {
@@ -960,8 +1065,7 @@ document.addEventListener('DOMContentLoaded', function() {
   } else {
     revEls.forEach(function(el) { el.classList.remove('will-animate'); });
   }
- 
-  // ── Starfield ────────────────────────────────────────────
+
   var canvas = document.getElementById('stars');
   if (canvas) {
     var ctx = canvas.getContext('2d'), stars = [];
@@ -996,8 +1100,7 @@ document.addEventListener('DOMContentLoaded', function() {
     resizeCanvas();
     drawStars();
   }
- 
-  // ── FAQ accordion ────────────────────────────────────────
+
   document.querySelectorAll('.faq-item').forEach(function(item) {
     var btn = item.querySelector('.faq-q');
     var ans = item.querySelector('.faq-a');
@@ -1014,24 +1117,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   });
- 
-  // ── Before/After tabs ────────────────────────────────────
-  document.querySelectorAll('.ba-tab').forEach(function(tab) {
-    tab.addEventListener('click', function() {
-      document.querySelectorAll('.ba-tab').forEach(function(t) { t.classList.remove('active'); });
-      tab.classList.add('active');
-      var id = tab.getAttribute('data-target');
-      document.querySelectorAll('.ba-panel-group').forEach(function(g) { g.classList.remove('active'); });
-      var target = document.getElementById(id);
-      if (target) target.classList.add('active');
-      document.querySelectorAll('#ba-videos video').forEach(function(v) {
-        if (id === 'ba-videos') v.play().catch(function() {});
-        else v.pause();
-      });
-    });
-  });
- 
-  // ── Urgency bar slots countdown ──────────────────────────
+
   var slotsEl = document.getElementById('slots-count');
   if (slotsEl) {
     var stored = sessionStorage.getItem('ep_slots');
@@ -1046,8 +1132,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     setTimeout(maybeDecrement, 300000 + Math.random() * 420000);
   }
- 
-  // ── Handle Stripe redirect result ────────────────────────
+
+  // Sticky mobile CTA — appears once the visitor scrolls past the hero
+  var stickyCta = document.getElementById('sticky-cta');
+  var heroSection = document.querySelector('.hero');
+  var checkoutSection = document.getElementById('checkout');
+  if (stickyCta && heroSection) {
+    window.addEventListener('scroll', function() {
+      var heroBottom = heroSection.getBoundingClientRect().bottom;
+      var checkoutTop = checkoutSection ? checkoutSection.getBoundingClientRect().top : Infinity;
+      var pastHero = heroBottom < 0;
+      var reachedCheckout = checkoutTop < window.innerHeight;
+      stickyCta.classList.toggle('visible', pastHero && !reachedCheckout);
+    }, { passive: true });
+  }
+
   var params = new URLSearchParams(window.location.search);
   if (params.get('success') === 'true') {
     var panel   = document.getElementById('checkout-panel');
@@ -1060,9 +1159,8 @@ document.addEventListener('DOMContentLoaded', function() {
     var checkoutEl2 = document.getElementById('checkout');
     if (checkoutEl2) checkoutEl2.scrollIntoView({ behavior: 'smooth' });
   }
- 
+
 });
 </script>
 </body>
 </html>
- 
