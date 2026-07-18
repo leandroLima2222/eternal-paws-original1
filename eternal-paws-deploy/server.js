@@ -6,6 +6,7 @@
 const express = require("express");
 const cors    = require("cors");
 const path    = require("path");
+const crypto  = require("crypto");
 const { Resend } = require("resend");
 
 // ── Stripe (chave vem de variável de ambiente em produção) ──────
@@ -26,6 +27,10 @@ const EMAIL_FROM = process.env.EMAIL_FROM || "Eternal Paws <onboarding@resend.de
 
 // ── Webhook ─────────────────────────────────────────────────────
 const WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET;
+
+// ── Meta Conversions API ──────────────────────────────────────
+const META_PIXEL_ID   = process.env.META_PIXEL_ID;
+const META_CAPI_TOKEN  = process.env.META_CAPI_ACCESS_TOKEN;
 
 // ═══════════════════════════════════════════════════════════════
 //  PLANOS — preços em centavos (USD)
@@ -141,13 +146,17 @@ async function handleWebhook(req, res) {
     Promise.allSettled([
       sendOwnerNotification({ customerName, customerEmail, planLabel, amountPaid }),
       sendCustomerConfirmation({ customerName, customerEmail, planLabel }),
-    ]).then(([ownerResult, customerResult]) => {
+      sendMetaPurchaseEvent({ req, customerEmail, amountPaid, planLabel, eventId: session.id }),
+    ]).then(([ownerResult, customerResult, metaResult]) => {
       if (ownerResult.status === "rejected") {
         console.error("🚨 OWNER EMAIL FAILED:", ownerResult.reason?.message || ownerResult.reason);
       }
       if (customerResult.status === "rejected") {
         console.error("🚨 CUSTOMER EMAIL FAILED — confirmation not sent to:", customerEmail);
         console.error("   Reason:", customerResult.reason?.message || customerResult.reason);
+      }
+      if (metaResult.status === "rejected") {
+        console.error("🚨 META CAPI EVENT FAILED:", metaResult.reason?.message || metaResult.reason);
       }
       if (ownerResult.status === "fulfilled" && customerResult.status === "fulfilled") {
         console.log("✅ Both emails sent successfully.");
@@ -158,6 +167,63 @@ async function handleWebhook(req, res) {
   }
 
   res.json({ received: true });
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  META CONVERSIONS API  (envia o evento Purchase pro servidor da Meta)
+//  Isso funciona mesmo se o usuário tiver ad blocker ou for iOS —
+//  não depende do pixel do navegador.
+// ═══════════════════════════════════════════════════════════════
+
+function sha256(value) {
+  return crypto.createHash("sha256").update(value.trim().toLowerCase()).digest("hex");
+}
+
+async function sendMetaPurchaseEvent({ req, customerEmail, amountPaid, planLabel, eventId }) {
+  if (!META_PIXEL_ID || !META_CAPI_TOKEN) {
+    console.warn("⚠️  META_PIXEL_ID ou META_CAPI_ACCESS_TOKEN não configurados — evento Purchase não enviado.");
+    return;
+  }
+
+  const payload = {
+    data: [
+      {
+        event_name: "Purchase",
+        event_time: Math.floor(Date.now() / 1000),
+        event_id: eventId, // mesmo ID usado no pixel do navegador evita evento duplicado
+        action_source: "website",
+        event_source_url: BASE_URL,
+        user_data: {
+          em: [sha256(customerEmail)],
+          client_ip_address: req.headers["x-forwarded-for"] || req.socket.remoteAddress,
+          client_user_agent: req.headers["user-agent"],
+        },
+        custom_data: {
+          currency: "usd",
+          value: Number(amountPaid.replace("$", "")),
+          content_name: planLabel,
+        },
+      },
+    ],
+  };
+
+  const url = `https://graph.facebook.com/v19.0/${META_PIXEL_ID}/events?access_token=${META_CAPI_TOKEN}`;
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const result = await response.json();
+    if (result.error) {
+      console.error("🚨 Meta CAPI error:", result.error.message);
+    } else {
+      console.log("📊 Meta Purchase event sent:", result.events_received, "event(s) received");
+    }
+  } catch (err) {
+    console.error("🚨 Meta CAPI request failed:", err.message);
+  }
 }
 
 // ═══════════════════════════════════════════════════════════════
