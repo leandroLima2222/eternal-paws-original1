@@ -114,6 +114,27 @@ app.get("/success", (req, res) => {
 });
 
 // ═══════════════════════════════════════════════════════════════
+//  ROTA TEMPORÁRIA DE TESTE — Meta CAPI
+//  ⚠️ REMOVER depois de confirmar que está funcionando!
+//  Acesse: https://SEU-DOMINIO/test-meta-event
+// ═══════════════════════════════════════════════════════════════
+
+app.get("/test-meta-event", async (req, res) => {
+  try {
+    await sendMetaPurchaseEvent({
+      req,
+      customerEmail: "teste@eternalpawstribute.shop",
+      amountPaid: "$29.00",
+      planLabel: "Memory ($29) — TESTE",
+      eventId: `test-${Date.now()}`,
+    });
+    res.json({ ok: true, message: "Evento de teste enviado. Confira os logs do Railway e o Events Manager da Meta." });
+  } catch (err) {
+    res.status(500).json({ ok: false, error: err.message });
+  }
+});
+
+// ═══════════════════════════════════════════════════════════════
 //  WEBHOOK: /webhook
 // ═══════════════════════════════════════════════════════════════
 
