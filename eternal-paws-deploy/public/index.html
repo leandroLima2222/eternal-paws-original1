@@ -13,6 +13,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
 <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" /></noscript>
 
+<!-- Preconnect to video CDN so the first click plays fast without costing anything up front -->
+<link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
+
 <style>
 :root{
   --night:#0B0D1A;
@@ -168,7 +171,7 @@ canvas#stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:non
 .step p{font-size:14px;color:var(--comet);line-height:1.65;}
 .step-note{margin-top:12px;font-size:12px;color:var(--comet);background:var(--aurora-dim);border:1px solid var(--dusk);border-radius:12px;padding:8px 14px;line-height:1.55;}
 
-/* ── What you receive (illustrated, no dependency on real uploaded photos) ── */
+/* ── What you receive ── */
 .deliver-grid{display:grid;gap:20px;}
 @media(min-width:640px){.deliver-grid{grid-template-columns:repeat(2,1fr);}}
 @media(min-width:1024px){.deliver-grid{grid-template-columns:repeat(4,1fr);}}
@@ -189,9 +192,37 @@ canvas#stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:non
 .video-grid{display:grid;gap:20px;}
 @media(min-width:768px){.video-grid{grid-template-columns:repeat(2,1fr);}}
 .video-card{background:var(--nebula);border:1px solid var(--dusk);border-radius:20px;overflow:hidden;}
-.video-card video{width:100%;aspect-ratio:9/16;object-fit:cover;display:block;background:#0d1429;}
 .video-card-caption{padding:14px 18px;font-size:12px;color:var(--comet);}
 .video-card-caption strong{color:var(--mist);}
+
+/* Click-to-play video frame — replaces autoplay so nothing downloads until requested */
+.video-frame{position:relative;width:100%;aspect-ratio:9/16;background:#0d1429;overflow:hidden;}
+.video-frame video{width:100%;height:100%;object-fit:cover;display:block;}
+.video-frame .vf-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.video-play-btn{
+  position:absolute;inset:0;width:100%;height:100%;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(11,13,26,.28);cursor:pointer;border:none;padding:0;
+  transition:background .2s;
+}
+.video-play-btn:hover{background:rgba(11,13,26,.42);}
+.video-play-btn .vp-circle{
+  width:60px;height:60px;border-radius:50%;
+  background:rgba(200,185,106,.95);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 10px 30px rgba(0,0,0,.45);
+  transition:transform .2s;
+}
+.video-play-btn:hover .vp-circle{transform:scale(1.08);}
+.video-play-btn.hidden{display:none;}
+.video-pause-btn{
+  position:absolute;bottom:12px;right:12px;
+  width:36px;height:36px;border-radius:50%;
+  background:rgba(11,13,26,.65);border:1px solid rgba(255,255,255,.2);
+  display:none;align-items:center;justify-content:center;cursor:pointer;
+}
+.video-pause-btn.visible{display:flex;}
+.hero-phone-video{position:absolute;inset:0;width:100%;height:100%;z-index:2;}
 
 /* ── Pricing ── */
 .price-grid{display:grid;gap:20px;max-width:720px;margin:0 auto;}
@@ -242,7 +273,7 @@ canvas#stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:non
 .pillar-title{font-size:13px;font-weight:600;color:var(--mist);margin-bottom:4px;}
 .pillar-desc{font-size:11px;color:var(--comet);}
 
-/* ── Testimonials (text-first, no photo dependency) ── */
+/* ── Testimonials ── */
 .test-grid{display:grid;gap:18px;}
 @media(min-width:640px){.test-grid{gap:22px;}}
 @media(min-width:768px){.test-grid{grid-template-columns:repeat(3,1fr);}}
@@ -311,7 +342,6 @@ canvas#stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:non
 .success-icon{font-size:44px;margin-bottom:14px;}
 .spinner{width:18px;height:18px;border:2px solid rgba(11,13,26,.3);border-top-color:var(--night);border-radius:50%;animation:spin .7s linear infinite;display:none;}
 
-/* Guarantee reinforcement block right by the pay button */
 .guarantee-inline{
   background:rgba(200,185,106,.06);border:1px solid rgba(200,185,106,.22);
   border-radius:14px;padding:16px 18px;
@@ -322,7 +352,6 @@ canvas#stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:non
 .guarantee-inline li strong{color:var(--mist);}
 .guarantee-inline svg{flex-shrink:0;margin-top:1px;}
 
-/* Final CTA */
 .final-cta{text-align:center;}
 .final-star{font-family:var(--font-d);font-size:56px;color:var(--star);opacity:.25;margin-bottom:12px;line-height:1;}
 .final-cta h2{font-size:28px;margin-bottom:18px;}
@@ -330,7 +359,6 @@ canvas#stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:non
 @media(min-width:768px){.final-cta h2{font-size:44px;}}
 .final-cta p{color:var(--comet);font-size:15px;max-width:440px;margin:0 auto 32px;}
 
-/* ── Footer ── */
 footer{background:var(--night);border-top:1px solid var(--dusk);padding:32px 0 90px;}
 @media(min-width:768px){footer{padding:32px 0;}}
 .footer-inner{display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center;}
@@ -342,7 +370,6 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:32px 0 9
 .sec-badge{display:flex;align-items:center;gap:5px;font-size:10.5px;color:var(--comet);border:1px solid var(--dusk);border-radius:8px;padding:5px 10px;background:var(--nebula);}
 .footer-badges{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;}
 
-/* ── Sticky mobile CTA bar ── */
 #sticky-cta{
   position:fixed;left:0;right:0;bottom:0;z-index:70;
   background:rgba(11,13,26,.97);backdrop-filter:blur(14px);
@@ -358,49 +385,21 @@ footer{background:var(--night);border-top:1px solid var(--dusk);padding:32px 0 9
 #sticky-cta .btn{padding:12px 22px;font-size:14px;flex-shrink:0;}
 @media(min-width:768px){#sticky-cta{display:none;}}
 
-/* ── Reveal ── */
 .reveal{opacity:1;transform:none;}
 .reveal.will-animate{opacity:0;transform:translateY(24px);transition:opacity .65s cubic-bezier(.16,1,.3,1),transform .65s cubic-bezier(.16,1,.3,1);}
 .reveal.will-animate.visible{opacity:1;transform:none;}
 .rd1{transition-delay:.08s;}.rd2{transition-delay:.16s;}.rd3{transition-delay:.24s;}.rd4{transition-delay:.32s;}
 
-/* ── Mobile tap targets ── */
 @media(max-width:767px){.btn,.pay-btn,.price-cta,.plan-btn,.faq-q,.ba-tab{min-height:48px;}}
 </style>
-
-<!-- ════════════════════════════════════════════════════
-  META PIXEL
-════════════════════════════════════════════════════ -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '2107549763310270');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=2107549763310270&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
 
 </head>
 <body>
 
-<!-- ════════════════════════════════════════════════════
-  URGENCY BAR
-════════════════════════════════════════════════════ -->
 <div id="urgency-bar">
   🔥 Limited-time offer — <span class="gold">$10 OFF</span> today only &nbsp;·&nbsp; Slots remaining: <span class="count-ring" id="slots-count">7</span>
 </div>
 
-<!-- ════════════════════════════════════════════════════
-  NAVBAR
-════════════════════════════════════════════════════ -->
 <nav id="navbar">
   <div class="wrap nav-inner">
     <a href="#" class="logo"><span class="gold">✦</span>&nbsp;Eternal <em>Paws</em></a>
@@ -410,9 +409,6 @@ src="https://www.facebook.com/tr?id=2107549763310270&ev=PageView&noscript=1"
   </div>
 </nav>
 
-<!-- ════════════════════════════════════════════════════
-  HERO
-════════════════════════════════════════════════════ -->
 <section class="hero">
   <canvas id="stars"></canvas>
   <div class="hero-glow"></div>
@@ -452,8 +448,9 @@ src="https://www.facebook.com/tr?id=2107549763310270&ev=PageView&noscript=1"
         <div class="phone-shell">
           <div class="phone-notch"></div>
           <div class="phone-screen">
-            <video autoplay loop muted playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;">
-              <source src="images/hero-tribute.mp4" type="video/mp4">
+            <!-- Hero video: click-to-play, no autoplay, nothing downloaded until requested -->
+            <video class="hero-phone-video js-lazy-video" muted playsinline preload="none" style="display:none;object-fit:cover;">
+              <source data-src="images/hero-tribute.mp4" type="video/mp4">
             </video>
             <svg viewBox="0 0 200 355" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%;z-index:1;">
               <defs>
@@ -474,6 +471,15 @@ src="https://www.facebook.com/tr?id=2107549763310270&ev=PageView&noscript=1"
               <rect x="0" y="330" width="200" height="25" fill="rgba(123,111,212,.35)"/>
               <text x="100" y="347" text-anchor="middle" font-family="sans-serif" font-size="6.5" fill="white" opacity=".9" letter-spacing="2">ETERNAL PAWS</text>
             </svg>
+            <!-- Play button overlay for the hero preview -->
+            <button class="video-play-btn js-play-btn" type="button" aria-label="Play preview" style="z-index:3;">
+              <span class="vp-circle">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#0B0D1A"><path d="M8 5v14l11-7z"/></svg>
+              </span>
+            </button>
+            <button class="video-pause-btn js-pause-btn" type="button" aria-label="Pause" style="z-index:3;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>
+            </button>
           </div>
           <div class="phone-home-bar"></div>
         </div>
@@ -490,9 +496,6 @@ src="https://www.facebook.com/tr?id=2107549763310270&ev=PageView&noscript=1"
   </div>
 </section>
 
-<!-- ════════════════════════════════════════════════════
-  MARQUEE
-════════════════════════════════════════════════════ -->
 <div class="marquee-strip">
   <div class="marquee-track">
     <span class="marquee-item"><span class="stars-gold" style="font-size:11px;">★★★★★</span>&nbsp;"I cried happy tears watching Bella's tribute" — Maria T.</span><span class="m-sep">✦</span>
@@ -510,9 +513,6 @@ src="https://www.facebook.com/tr?id=2107549763310270&ev=PageView&noscript=1"
   </div>
 </div>
 
-<!-- ════════════════════════════════════════════════════
-  HOW IT WORKS
-════════════════════════════════════════════════════ -->
 <section class="sec sec-cosmos" id="how-it-works">
   <div class="wrap-md">
     <div class="sec-header reveal">
@@ -543,9 +543,6 @@ src="https://www.facebook.com/tr?id=2107549763310270&ev=PageView&noscript=1"
   </div>
 </section>
 
-<!-- ════════════════════════════════════════════════════
-  WHAT YOU RECEIVE (no dependency on real uploaded photos)
-════════════════════════════════════════════════════ -->
 <section class="sec" id="what-you-get">
   <div class="wrap-md">
     <div class="sec-header reveal">
@@ -624,12 +621,45 @@ src="https://www.facebook.com/tr?id=2107549763310270&ev=PageView&noscript=1"
         <h2 style="font-size:24px;">See the <em class="gold">cinematic quality</em></h2>
       </div>
       <div class="video-grid">
+        <!-- Click-to-play showcase videos: only the poster loads until the user taps play -->
         <div class="video-card reveal">
-          <video autoplay loop muted playsinline><source src="https://res.cloudinary.com/defx9fopr/video/upload/v1782373987/mochi-before_kngzpr.mp4" type="video/mp4"></video>
+          <div class="video-frame">
+            <video class="js-lazy-video" muted playsinline preload="none" style="display:none;">
+              <source data-src="https://res.cloudinary.com/defx9fopr/video/upload/v1782373987/mochi-before_kngzpr.mp4" type="video/mp4">
+            </video>
+            <svg class="vf-poster" viewBox="0 0 320 568" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+              <defs><linearGradient id="pg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1c1436"/><stop offset="60%" stop-color="#0d1429"/><stop offset="100%" stop-color="#0B0D1A"/></linearGradient></defs>
+              <rect width="320" height="568" fill="url(#pg1)"/>
+              <circle cx="60" cy="60" r="1.4" fill="#fff" opacity=".8"/><circle cx="260" cy="90" r="1" fill="#fff" opacity=".7"/><circle cx="150" cy="40" r="1.2" fill="#C8B96A" opacity=".9"/>
+              <text x="160" y="300" text-anchor="middle" font-family="Georgia,serif" font-size="17" fill="#E8E4F8" opacity=".65" font-style="italic">Spot's Reunion</text>
+            </svg>
+            <button class="video-play-btn js-play-btn" type="button" aria-label="Play video">
+              <span class="vp-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="#0B0D1A"><path d="M8 5v14l11-7z"/></svg></span>
+            </button>
+            <button class="video-pause-btn js-pause-btn" type="button" aria-label="Pause">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>
+            </button>
+          </div>
           <div class="video-card-caption"><strong>Spot</strong> — 🐾Memory package, cinematic reunion video</div>
         </div>
         <div class="video-card reveal rd1">
-          <video autoplay loop muted playsinline><source src="https://res.cloudinary.com/defx9fopr/video/upload/v1784094917/cooper-after_nxzmun.mp4" type="video/mp4"></video>
+          <div class="video-frame">
+            <video class="js-lazy-video" muted playsinline preload="none" style="display:none;">
+              <source data-src="https://res.cloudinary.com/defx9fopr/video/upload/v1784094917/cooper-after_nxzmun.mp4" type="video/mp4">
+            </video>
+            <svg class="vf-poster" viewBox="0 0 320 568" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+              <defs><linearGradient id="pg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#241a3d"/><stop offset="60%" stop-color="#12172e"/><stop offset="100%" stop-color="#0B0D1A"/></linearGradient></defs>
+              <rect width="320" height="568" fill="url(#pg2)"/>
+              <circle cx="80" cy="70" r="1.2" fill="#fff" opacity=".8"/><circle cx="240" cy="50" r="1" fill="#fff" opacity=".7"/><circle cx="180" cy="100" r="1.3" fill="#C8B96A" opacity=".9"/>
+              <text x="160" y="300" text-anchor="middle" font-family="Georgia,serif" font-size="17" fill="#E8E4F8" opacity=".65" font-style="italic">Mel's Reunion</text>
+            </svg>
+            <button class="video-play-btn js-play-btn" type="button" aria-label="Play video">
+              <span class="vp-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="#0B0D1A"><path d="M8 5v14l11-7z"/></svg></span>
+            </button>
+            <button class="video-pause-btn js-pause-btn" type="button" aria-label="Pause">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>
+            </button>
+          </div>
           <div class="video-card-caption"><strong>Mel</strong> —  🐾Memory package, cinematic reunion video</div>
         </div>
       </div>
@@ -643,9 +673,6 @@ src="https://www.facebook.com/tr?id=2107549763310270&ev=PageView&noscript=1"
   </div>
 </section>
 
-<!-- ════════════════════════════════════════════════════
-  PRICING (moved up, closer to the top of the funnel)
-════════════════════════════════════════════════════ -->
 <section class="sec sec-cosmos" id="pricing">
   <div class="wrap-sm">
     <div class="sec-header reveal">
@@ -728,9 +755,6 @@ src="https://www.facebook.com/tr?id=2107549763310270&ev=PageView&noscript=1"
   </div>
 </section>
 
-<!-- ════════════════════════════════════════════════════
-  GUARANTEE
-════════════════════════════════════════════════════ -->
 <section class="sec" id="guarantee">
   <div class="wrap-sm" style="text-align:center;">
     <div class="guarantee-icon reveal">
@@ -748,9 +772,6 @@ src="https://www.facebook.com/tr?id=2107549763310270&ev=PageView&noscript=1"
   </div>
 </section>
 
-<!-- ════════════════════════════════════════════════════
-  TESTIMONIALS — text-first, no photo dependency
-════════════════════════════════════════════════════ -->
 <section class="sec sec-cosmos">
   <div class="wrap">
     <div class="sec-header reveal">
@@ -809,9 +830,6 @@ src="https://www.facebook.com/tr?id=2107549763310270&ev=PageView&noscript=1"
   </div>
 </section>
 
-<!-- ════════════════════════════════════════════════════
-  FAQ
-════════════════════════════════════════════════════ -->
 <section class="sec" id="faq">
   <div class="wrap-sm">
     <div class="sec-header reveal">
@@ -830,9 +848,6 @@ src="https://www.facebook.com/tr?id=2107549763310270&ev=PageView&noscript=1"
   </div>
 </section>
 
-<!-- ════════════════════════════════════════════════════
-  FINAL CTA
-════════════════════════════════════════════════════ -->
 <section class="sec sec-cosmos">
   <div class="wrap-sm final-cta">
     <p class="final-star reveal">✦</p>
@@ -846,9 +861,6 @@ src="https://www.facebook.com/tr?id=2107549763310270&ev=PageView&noscript=1"
   </div>
 </section>
 
-<!-- ════════════════════════════════════════════════════
-  CHECKOUT
-════════════════════════════════════════════════════ -->
 <section id="checkout" style="padding:60px 0 80px;background:var(--night);">
   <div class="wrap-sm">
     <div class="sec-header reveal" style="margin-bottom:36px;">
@@ -890,7 +902,6 @@ src="https://www.facebook.com/tr?id=2107549763310270&ev=PageView&noscript=1"
             Secured by <strong style="color:var(--mist);margin-left:3px;">Stripe</strong> &nbsp;·&nbsp; 256-bit SSL
           </div>
 
-          <!-- Guarantee reinforcement, right next to the pay button -->
           <div class="guarantee-inline">
             <div class="guarantee-inline-title">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8B96A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
@@ -908,9 +919,6 @@ src="https://www.facebook.com/tr?id=2107549763310270&ev=PageView&noscript=1"
   </div>
 </section>
 
-<!-- ════════════════════════════════════════════════════
-  FOOTER
-════════════════════════════════════════════════════ -->
 <footer>
   <div class="wrap footer-inner">
     <div>
@@ -930,9 +938,6 @@ src="https://www.facebook.com/tr?id=2107549763310270&ev=PageView&noscript=1"
   </div>
 </footer>
 
-<!-- ════════════════════════════════════════════════════
-  STICKY MOBILE CTA (shortens distance to checkout)
-════════════════════════════════════════════════════ -->
 <div id="sticky-cta">
   <div class="sc-info">
     <span>Ready when you are</span>
@@ -941,7 +946,6 @@ src="https://www.facebook.com/tr?id=2107549763310270&ev=PageView&noscript=1"
   <a href="#checkout" class="btn btn-gold">from $29</a>
 </div>
 
-<!-- SCRIPTS -->
 <script>
 var currentPlan = 'memory';
 
@@ -1039,9 +1043,76 @@ async function handleCheckout() {
   }
 }
 
+/* ── Click-to-play video handling ──
+   Videos never download until the user taps play. Each source lives
+   in a data-src attribute and only gets moved into src at first click. */
+function initLazyVideos() {
+  document.querySelectorAll('.js-play-btn').forEach(function(playBtn) {
+    var frame = playBtn.closest('.video-frame') || playBtn.closest('.phone-screen');
+    if (!frame) return;
+    var video = frame.querySelector('.js-lazy-video');
+    var pauseBtn = frame.querySelector('.js-pause-btn');
+    var poster = frame.querySelector('.vf-poster');
+    if (!video) return;
+
+    playBtn.addEventListener('click', function () {
+      if (!video.src) {
+        var source = video.querySelector('source[data-src]');
+        if (source) { source.src = source.getAttribute('data-src'); }
+        video.load();
+      }
+      video.style.display = 'block';
+      if (poster) poster.style.display = 'none';
+      video.play().catch(function(){});
+      playBtn.classList.add('hidden');
+      if (pauseBtn) pauseBtn.classList.add('visible');
+    });
+
+    if (pauseBtn) {
+      pauseBtn.addEventListener('click', function () {
+        video.pause();
+        playBtn.classList.remove('hidden');
+        pauseBtn.classList.remove('visible');
+      });
+    }
+
+    video.addEventListener('click', function () {
+      if (!video.paused) {
+        video.pause();
+        playBtn.classList.remove('hidden');
+        if (pauseBtn) pauseBtn.classList.remove('visible');
+      }
+    });
+
+    video.addEventListener('ended', function () {
+      playBtn.classList.remove('hidden');
+      if (pauseBtn) pauseBtn.classList.remove('visible');
+    });
+  });
+}
+
+/* ── Defer the Meta Pixel so it never blocks the first paint ──
+   Loads once the browser is idle, or on the visitor's first
+   scroll/tap/keypress — whichever comes first. */
+function loadMetaPixel() {
+  if (window.__fbPixelLoaded) return;
+  window.__fbPixelLoaded = true;
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '2107549763310270');
+  fbq('track', 'PageView');
+}
+
 document.addEventListener('DOMContentLoaded', function() {
 
   renderFeatures('memory');
+  initLazyVideos();
 
   var navbar = document.getElementById('navbar');
   if (navbar) {
@@ -1136,7 +1207,6 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(maybeDecrement, 300000 + Math.random() * 420000);
   }
 
-  // Sticky mobile CTA — appears once the visitor scrolls past the hero
   var stickyCta = document.getElementById('sticky-cta');
   var heroSection = document.querySelector('.hero');
   var checkoutSection = document.getElementById('checkout');
@@ -1163,7 +1233,20 @@ document.addEventListener('DOMContentLoaded', function() {
     if (checkoutEl2) checkoutEl2.scrollIntoView({ behavior: 'smooth' });
   }
 
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(loadMetaPixel, { timeout: 4000 });
+  } else {
+    setTimeout(loadMetaPixel, 2500);
+  }
+  ['scroll', 'mousemove', 'touchstart', 'keydown', 'click'].forEach(function(evt) {
+    window.addEventListener(evt, loadMetaPixel, { once: true, passive: true });
+  });
+
 });
 </script>
+<noscript>
+<img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2107549763310270&ev=PageView&noscript=1" />
+</noscript>
 </body>
 </html>
