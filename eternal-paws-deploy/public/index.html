@@ -1091,23 +1091,18 @@ function initLazyVideos() {
   });
 }
 
-/* ── Defer the Meta Pixel so it never blocks the first paint ──
-   Loads once the browser is idle, or on the visitor's first
-   scroll/tap/keypress — whichever comes first. */
-function loadMetaPixel() {
-  if (window.__fbPixelLoaded) return;
-  window.__fbPixelLoaded = true;
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window, document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', '2107549763310270');
-  fbq('track', 'PageView');
-}
+/* ── Meta Pixel Code ── */
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '27678463561792658');
+fbq('track', 'PageView');
+/* ── End Meta Pixel Code ── */
 
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -1233,20 +1228,11 @@ document.addEventListener('DOMContentLoaded', function() {
     if (checkoutEl2) checkoutEl2.scrollIntoView({ behavior: 'smooth' });
   }
 
-  if ('requestIdleCallback' in window) {
-    requestIdleCallback(loadMetaPixel, { timeout: 4000 });
-  } else {
-    setTimeout(loadMetaPixel, 2500);
-  }
-  ['scroll', 'mousemove', 'touchstart', 'keydown', 'click'].forEach(function(evt) {
-    window.addEventListener(evt, loadMetaPixel, { once: true, passive: true });
-  });
-
 });
 </script>
 <noscript>
 <img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=2107549763310270&ev=PageView&noscript=1" />
+src="https://www.facebook.com/tr?id=27678463561792658&ev=PageView&noscript=1" />
 </noscript>
 </body>
 </html>
