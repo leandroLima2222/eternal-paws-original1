@@ -119,7 +119,7 @@ app.get("/success", (req, res) => {
 
 async function handleWebhook(req, res) {
   const sig = req.headers["stripe-signature"];
-
+  console.log("🔍 WEBHOOK_SECRET em uso:", WEBHOOK_SECRET ? `${WEBHOOK_SECRET.slice(0, 10)}...${WEBHOOK_SECRET.slice(-4)}` : "❌ UNDEFINED (variável não carregada!)");
   let event;
   try {
     event = stripe.webhooks.constructEvent(req.body, sig, WEBHOOK_SECRET);
